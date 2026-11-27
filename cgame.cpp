@@ -167,6 +167,33 @@ __declspec(naked) void custom_PM_GetReducedFriction_Naked()
 	}
 }
 
+// Hor+ widescreen FOV: cg_fov is treated as the 4:3 horizontal FOV, so wider screens gain
+// view on the sides instead of losing it at the top and bottom (stock behaviour).
+static float fovScale = 1.0f; // widened fov_x / stock fov_x for the current frame
+
+float CG_GetFov_HorPlus() {
+	float(*CG_GetFov)() = (float(*)())CGAME_OFF(0x300344C0); // cg_fov clamped + zoom, returned in st0
+	float fov = CG_GetFov();
+	fovScale = 1.0f;
+
+	int width = *(int*)CGAME_OFF(0x3020D338), height = *(int*)CGAME_OFF(0x3020D33C); // cg.refdef
+	float aspect = height > 0 ? (float)width / height : 0;
+	if (aspect > 4.0f / 3.0f && Cvar_VariableIntegerValue("cg_widescreenfov")) {
+		const float toRad = 3.14159265f / 360.0f; // half angle in radians
+		float widened = atanf(tanf(fov * toRad) * aspect * 0.75f) / toRad;
+		fovScale = widened / fov;
+		fov = widened;
+	}
+	return fov;
+}
+
+int CG_CalcFov_HorPlus() {
+	int(*CG_CalcFov)() = (int(*)())CGAME_OFF(0x300345E0);
+	int inWater = CG_CalcFov();
+	*(float*)CGAME_OFF(0x3020F3A8) /= fovScale; // zoomSensitivity = fov_x / cg_fov: keep mouse speed unchanged
+	return inWater;
+}
+
 void CG_DrawFPS(float y) {
 	cvar_t* xui_fps = Cvar_Get("cg_xui_fps", "1", CVAR_ARCHIVE);
 
@@ -210,6 +237,10 @@ void CG_Init(DWORD base) {
 	cgame_mp = base;
 	
 	__call(CGAME_OFF(0x3001617E), (int)CG_DrawFPS);
+
+	Cvar_Get("cg_widescreenfov", "1", CVAR_ARCHIVE);
+	__call(CGAME_OFF(0x300345E1), (int)CG_GetFov_HorPlus);
+	__jmp(CGAME_OFF(0x30034E31), (int)CG_CalcFov_HorPlus);
 	
 	*(UINT32*)CGAME_OFF(0x300769EC) = CVAR_ARCHIVE; // Enable cg_fov
 	*(UINT32*)CGAME_OFF(0x30076E6C) = CVAR_ARCHIVE; // Unlock cg_thirdpersonangle
