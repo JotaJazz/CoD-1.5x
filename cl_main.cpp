@@ -27,6 +27,16 @@ void CL_Frame(int msec) {
 	CL_DiscordFrame();
 
 	CL_FOVLimit();
+
+	// update check result (update.cpp): show it in the version text of the menus, once
+	static bool updateAnnounced;
+	int Update_LatestBuild();
+	int latest = Update_LatestBuild();
+	if (!updateAnnounced && latest > BUILDNUMBER) {
+		updateAnnounced = true;
+		Com_Printf("^3CoD 1.5x %d is available: https://github.com/JotaJazz/CoD-1.5x/releases\n", latest);
+		Cvar_Set("shortversion", va("1.5x (%d) - %d available", BUILDNUMBER, latest));
+	}
 }
 UINT_PTR pcl_frame = (UINT_PTR)0x412710;
 void __declspec(naked) CL_FrameStub()
@@ -84,4 +94,11 @@ void CL_Init(void) {
 	}
 
 	Cmd_AddCommand("r_borderless", Cmd_Borderless);
+
+	static bool updateStarted; // CL_Init runs again on some restarts
+	if (!updateStarted && Cvar_Get("cl_updatecheck", "1", CVAR_ARCHIVE)->integer) {
+		updateStarted = true;
+		void Update_Start();
+		Update_Start();
+	}
 }

@@ -1,5 +1,5 @@
 // Unit tests for the pure parts of the DLL. Build from a VS x86 prompt in this folder:
-//   cl /EHsc /D_CRT_SECURE_NO_WARNINGS unit_test.cpp ..\sha256.cpp ..\fov.cpp ..\names.cpp && unit_test.exe
+//   cl /EHsc /D_CRT_SECURE_NO_WARNINGS unit_test.cpp ..\sha256.cpp ..\fov.cpp ..\names.cpp ..\update.cpp && unit_test.exe
 #include <stdio.h>
 #include <string.h>
 #include <math.h>
@@ -10,6 +10,7 @@ float HorPlusFov(float fov, float aspect);
 char* Com_CleanHostname(char* hostname, int size, bool colors);
 char* Com_CleanMapname(char* mapname);
 const char* Com_GametypeName(char* gt, bool colors);
+int ParseLatestBuild(const char* json);
 
 static float VerticalFov(float fovX, float aspect) { // stock cgame formula: fov_y from fov_x
 	return atanf(tanf(fovX * 3.14159265f / 360.0f) / aspect) * 360.0f / 3.14159265f;
@@ -43,6 +44,12 @@ int main() {
 	strcpy(gt, "sd");    assert(!strcmp(Com_GametypeName(gt, false), "Search & Destroy"));
 	strcpy(gt, "^1ctf"); assert(!strcmp(Com_GametypeName(gt, false), "ctf"));
 	assert(!strcmp(Com_GametypeName((char*)"", false), "Unknown Gametype"));
+
+	assert(ParseLatestBuild("{\"url\":\"x\",\"tag_name\":\"v2045\",\"name\":\"CoD 1.5x 2045\"}") == 2045);
+	assert(ParseLatestBuild("{\"tag_name\" : \"2046\"}") == 2046);
+	assert(ParseLatestBuild("{\"message\":\"Not Found\"}") == 0);
+	assert(ParseLatestBuild("{\"tag_name\":\"beta\"}") == 0);
+	assert(ParseLatestBuild(NULL) == 0);
 
 	printf("ok\n");
 	return 0;

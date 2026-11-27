@@ -11,11 +11,14 @@ struct discordData_s {
 };
 static struct discordData_s discordData;
 
+// The Discord application has no uploaded assets; Discord accepts an image URL instead of an asset key.
+#define DISCORD_LOGO "https://raw.githubusercontent.com/JotaJazz/CoD-1.5x/main/assets/discord-logo.png"
+
 void Discord_StatusDemo() {
 	DiscordRichPresence discordPresence;
 	memset(&discordPresence, 0, sizeof(discordPresence));
 	discordPresence.state = "Watching a demo";
-	discordPresence.largeImageKey = "main_small";
+	discordPresence.largeImageKey = DISCORD_LOGO;
 
 	Discord_UpdatePresence(&discordPresence);
 }
@@ -24,7 +27,7 @@ void Discord_StatusIdle() {
 	DiscordRichPresence discordPresence;
 	memset(&discordPresence, 0, sizeof(discordPresence));
 	discordPresence.state = "Looking to play";
-	discordPresence.largeImageKey = "main_small";
+	discordPresence.largeImageKey = DISCORD_LOGO;
 
 	Discord_UpdatePresence(&discordPresence);
 }
@@ -35,9 +38,6 @@ void Discord_StatusPlaying() {
 	char* hostname_p = Info_ValueForKey(info, "sv_hostname");
 	char hostname[64] = { 0 };
 	Q_strncpyz(hostname, hostname_p, sizeof(hostname));
-	char* mapname_p = Info_ValueForKey(info, "mapname");
-	char mapname[64] = { 0 };
-	Q_strncpyz(mapname, mapname_p, sizeof(mapname));
 	char* mapnameClean_p = Info_ValueForKey(info, "mapname");
 	char mapnameClean[64] = { 0 };
 	Q_strncpyz(mapnameClean, mapnameClean_p, sizeof(mapnameClean));
@@ -50,8 +50,8 @@ void Discord_StatusPlaying() {
 
 	discordPresence.state = Com_GametypeName(gametype, false);
 	discordPresence.details = Com_CleanHostname(hostname, sizeof(hostname), false);
-	discordPresence.largeImageKey = mapname;
-	discordPresence.largeImageText = Com_CleanMapname(mapnameClean); // for some reason this needs a whole new buffer
+	discordPresence.largeImageKey = DISCORD_LOGO;
+	discordPresence.largeImageText = Com_CleanMapname(mapnameClean);  // cleaned in place: own copy of mapname
 
 	
 	int player_count = cgame_mp ? *(int*)CGAME_OFF(0x3020F7B0) : 0;

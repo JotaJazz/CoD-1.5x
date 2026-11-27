@@ -33,7 +33,7 @@
 ### 🖱️ Input
 | | |
 |---|---|
-| **Raw mouse input** | `m_rawinput 1` reads the mouse directly (WM_INPUT), ignoring Windows pointer speed and "Enhance pointer precision". 1:1 aim at any polling rate. |
+| **Raw mouse input** | On by default: the mouse is read directly (WM_INPUT), ignoring Windows pointer speed and "Enhance pointer precision". 1:1 aim at any polling rate. `m_rawinput 0` for the old behaviour. |
 
 ### 🛡️ Safety & stability
 | | |
@@ -41,6 +41,8 @@
 | **Blocks unofficial game DLLs** | The engine extracts `cgame`/`ui`/`game` DLLs from the highest-priority pk3, which can be one a server made you download, and loading a DLL runs its code. Only the official 1.5 DLLs are loaded now (SHA-256 checked *before* loading). `cl_allowCustomDlls 1` to allow others. |
 | **Version-checked patches** | Patches are applied only to the official CoDMP 1.5 exe and cgame/ui builds, never to an unknown build that would crash. |
 | **Your settings stick** | Recommended settings are applied once, not forced on every start. |
+| **Crash reports** | If the game crashes, a report and a small memory dump are saved in `crashes\` next to the game and a message shows where. Attach them to an [issue](https://github.com/JotaJazz/CoD-1.5x/issues). Nothing is uploaded. |
+| **Update notice** | At startup the client asks GitHub for the latest release; when there is a newer one, the version text in the menus says so. `cl_updatecheck 0` disables it. |
 | **Leaner** | ~440 lines of dead code removed, including a string compare that ran on every audio call. |
 
 ### 📦 Install without patching the game
@@ -48,7 +50,7 @@ The original release shipped a modified `CoDMP.exe`. This fork installs as `mss3
 
 ### 🎮 Kept from CoDExtended 1.5x
 - FPS counter (`cg_xui_fps`, `cg_xui_fps_x`, `cg_xui_fps_y`)
-- Discord Rich Presence (server, map, gametype, players)
+- Discord Rich Presence (server, map, gametype, players), now with a logo
 - Unlocked `cg_fov`, `cg_thirdperson`, `cg_thirdpersonangle`
 - Server-controlled FOV limits (`sv_fov_min` / `sv_fov_max`) and jump slowdown (`jump_slowdownEnable 0`)
 - Alt-tab / minimize fix, no flickering when loading a map, no "too many visible models" spam, more hunk memory
@@ -86,16 +88,17 @@ Rename `mss32.dll` to `mss32_original.dll`, then copy `cod15x.dll` into the fold
 |---|---|---|
 | `r_mode 10` | | Native desktop resolution (shown in the Video menu). `r_mode 11` is the same. |
 | `cg_widescreenfov` | `1` | Hor+ FOV on widescreen. `0` = stock behaviour. |
-| `m_rawinput` | `0` | `1` = raw mouse input. You may need to retune `sensitivity`. |
+| `m_rawinput` | `1` | Raw mouse input. `0` = Windows cursor (pointer speed and acceleration apply). |
 | `r_borderless` | `0` | `1` = borderless window at native resolution. |
 | `cg_xui_fps` | `1` | FPS counter; position with `cg_xui_fps_x` / `cg_xui_fps_y`. |
 | `cl_allowCustomDlls` | `0` | `1` = allow non-official cgame/ui/game DLLs. Only for servers you trust. |
 | `r_displayRefresh` | auto | Set it yourself to force a refresh rate. |
+| `cl_updatecheck` | `1` | Check GitHub for a newer release at startup. `0` = never connect. |
 
 Example:
 ```
 /r_mode 10
-/m_rawinput 1
+/r_borderless 1
 /vid_restart
 ```
 

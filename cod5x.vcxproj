@@ -237,6 +237,7 @@
     <ClCompile Include="codextended.cpp" />
     <ClCompile Include="common.cpp" />
     <ClCompile Include="cvar.cpp" />
+    <ClCompile Include="crash.cpp" />
     <ClCompile Include="discord.cpp" />
     <ClCompile Include="dllmain.cpp">
       <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</CompileAsManaged>
@@ -263,6 +264,7 @@
     <ClCompile Include="render.cpp" />
     <ClCompile Include="ui.cpp" />
     <ClCompile Include="stdafx.cpp" />
+    <ClCompile Include="update.cpp" />
     <ClCompile Include="win_authority.cpp" />
     <ClCompile Include="win_main.cpp" />
   </ItemGroup>

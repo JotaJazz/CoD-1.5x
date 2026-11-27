@@ -29,7 +29,7 @@ static LRESULT CALLBACK RawInput_WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPA
 // called after every renderer init: the game window is recreated on vid_restart
 void IN_InitRawInput(HWND hWnd) {
 	if (!m_rawinput)
-		m_rawinput = Cvar_Get("m_rawinput", "0", CVAR_ARCHIVE);
+		m_rawinput = Cvar_Get("m_rawinput", "1", CVAR_ARCHIVE);
 
 	if (!hWnd)
 		return;
