@@ -53,7 +53,7 @@ void Discord_StatusPlaying() {
 	memset(&discordPresence, 0, sizeof(discordPresence));
 
 	discordPresence.state = Com_GametypeName(gametype, false);
-	discordPresence.details = Com_CleanHostname(hostname, false);
+	discordPresence.details = Com_CleanHostname(hostname, sizeof(hostname), false);
 	discordPresence.largeImageKey = mapname;
 	discordPresence.largeImageText = Com_CleanMapname(mapnameClean); // for some reason this needs a whole new buffer
 

@@ -22,7 +22,7 @@ void Main_UnprotectModule(HMODULE hModule) {
 	VirtualProtect((LPVOID)hModule, size, PAGE_EXECUTE_READWRITE, &oldProtect);
 }
 
-bool apply_hooks() {
+void apply_hooks() {
 	// allow alt tab - set dwExStyle from WS_EX_TOPMOST to WS_EX_LEFT (default), which allows minimizing
 	XUNLOCK((void*)0x4EEBD1, 1);
 	memset((void*)0x4EEBD1, 0x00, 1);
@@ -35,7 +35,7 @@ bool apply_hooks() {
 	void patch_opcode_loadlibrary();
 	patch_opcode_loadlibrary();
 	
-	if (codversion != COD_5) return true;
+	if (codversion != COD_5) return;
 
 	PATCH_PUSH_STRING_PTR_VALUE(0x4EEC9D, "Call of Duty 1.5x Multiplayer");
 	PATCH_PUSH_STRING_PTR_VALUE(0x439F14, "1.5x " BUILD);
@@ -72,5 +72,4 @@ bool apply_hooks() {
 	__jmp(0x466E07, (int)IN_MouseMove); // IN_Frame tail call
 
 
-	return true;
 }

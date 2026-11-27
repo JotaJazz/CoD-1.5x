@@ -1497,6 +1497,7 @@ void MSS32_Hook() {
 		hMSS = LoadLibraryA("mss32.dll");
 
 	if (!hMSS || hMSS == self) { // never forward the exports to ourselves
+		// the game cannot start anyway; a clear message beats Windows' generic DLL error (loader lock accepted)
 		MessageBoxA(NULL, "Failed to load mss32_original.dll (the original Miles mss32.dll, renamed).", __TITLE, MB_OK | MB_ICONERROR);
 		hMSS = nullptr;
 		return;

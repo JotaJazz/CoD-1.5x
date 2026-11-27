@@ -3,8 +3,14 @@
 #include <Shlwapi.h>
 #pragma comment(lib, "shlwapi.lib")
 
-bool apply_hooks();
+void apply_hooks();
 bool find_cod_version();
+
+// Message boxes must not run under the loader lock (DllMain): a thread waits for it to be released.
+static DWORD WINAPI UnsupportedVersionBox(LPVOID) {
+	MsgBox("CoD 1.5x needs Call of Duty multiplayer 1.5. The game will run without the 1.5x features.");
+	return 0;
+}
 
 void codextended() {
 	srand(time(NULL));
@@ -14,13 +20,12 @@ void codextended() {
 	if (!find_cod_version()) {
 		char exe[MAX_PATH];
 		GetModuleFileNameA(NULL, exe, sizeof(exe));
-		if (StrStrIA(exe, "codmp")) // looks like CoD MP but not 1.5: say why nothing changed
-			MsgBox("CoD 1.5x needs Call of Duty multiplayer 1.5. The game will run without the 1.5x features.");
+		if (StrStrIA(exe, "codmp")) { // looks like CoD MP but not 1.5: say why nothing changed
+			HANDLE thread = CreateThread(NULL, 0, UnsupportedVersionBox, NULL, 0, NULL);
+			if (thread) CloseHandle(thread);
+		}
 		return;
 	}
 
-	if (!apply_hooks()) {
-		MsgBox("Failed to initialize CoDExtended, please report this at www.cod1x.eu.\n");
-		Com_Quit_f();
-	}
+	apply_hooks();
 }

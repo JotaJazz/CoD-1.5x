@@ -179,8 +179,8 @@ float CG_GetFov_HorPlus() {
 	int width = *(int*)CGAME_OFF(0x3020D338), height = *(int*)CGAME_OFF(0x3020D33C); // cg.refdef
 	float aspect = height > 0 ? (float)width / height : 0;
 	if (aspect > 4.0f / 3.0f && Cvar_VariableIntegerValue("cg_widescreenfov")) {
-		const float toRad = 3.14159265f / 360.0f; // half angle in radians
-		float widened = atanf(tanf(fov * toRad) * aspect * 0.75f) / toRad;
+		float HorPlusFov(float fov, float aspect);
+		float widened = HorPlusFov(fov, aspect);
 		fovScale = widened / fov;
 		fov = widened;
 	}

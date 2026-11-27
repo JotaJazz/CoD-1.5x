@@ -502,7 +502,7 @@ extern DWORD cgame_mp;
 char* trimSpaces(char* str);
 char* Q_CleanStr(char* string, bool colors = false);
 
-char* Com_CleanHostname(char* hostname, bool colors);
+char* Com_CleanHostname(char* hostname, int size, bool colors);
 char* Com_CleanMapname(char* mapname);
 const char* Com_GametypeName(char* gt, bool colors = false);
 bool GetDesktopResolution(int* pHorizontal, int* pVertical);
