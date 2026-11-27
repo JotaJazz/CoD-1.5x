@@ -64,7 +64,7 @@ You need an original, legitimately purchased copy of Call of Duty patched to **1
 
 1. Extract **`install.bat`** and **`cod15x.dll`** from the release zip into your Call of Duty folder.
 2. Double-click **`install.bat`** and choose **1 - Install / update**.
-3. Start multiplayer: the bottom-right corner shows **1.5x 2044**.
+3. Start multiplayer: the bottom-right corner shows **1.5x 2045**.
 
 The script renames your original Miles `mss32.dll` to `mss32_original.dll` and installs CoD 1.5x as `mss32.dll`. It asks for administrator rights when the game is under Program Files. Run it again to update, or choose **2 - Uninstall** to restore the original files.
 
