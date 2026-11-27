@@ -122,27 +122,3 @@ static void __call(unsigned int off, unsigned int loc) {
 }
 
 
-static void dumpbase(int* base, size_t len, const char *fn) {
-	static char dumpbase_path[64];
-
-	_snprintf(dumpbase_path, 63, "./dumpfiles/%s.dump", fn);
-
-	unsigned int result;
-	float rf;
-	char* rstr;
-
-	FILE* f = fopen(dumpbase_path, "wb");
-	if (f) {
-		fprintf(f, "File: %s\nDUMPFILE\n\n");
-
-		for (unsigned int i = 0; i < len; i++) {
-			result = *(unsigned int*)(base + i);
-			rf = *(float*)(base + i);
-			rstr = (char*)(base + i);
-			fprintf(f, "%d: Hex: %x, Decimal: %d, Float: %f, String: %s\n", i, result, result, rf, rstr);
-		}
-		fclose(f);
-	}
-
-	//Com_Printf("Successfully dumped '%s' to location '%s'.\n", fn, dumpbase_path);
-}

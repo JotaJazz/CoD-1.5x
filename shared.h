@@ -498,38 +498,6 @@ extern DWORD cgame_mp;
 #define CGAME_OFF(x) (cgame_mp + (x - 0x30000000))
 
 
-/* net stuff */
-
-
-#define EX_MASTER_NAME "xtnded.org"
-extern netadr_t ex_master;
-bool ex_master_resolve();
-
-typedef void(*NET_OutOfBandPrint_t)(netsrc_t, netadr_t, const char*, ...);
-extern NET_OutOfBandPrint_t NET_OutOfBandPrint;
-
-typedef void(*NET_SendPacket_t)(netsrc_t,int,void*,netadr_t);
-extern NET_SendPacket_t NET_SendPacket;
-
-void Sys_SendPacket(int packet_size, void *packet, netadr_t to);
-
-qboolean    NET_StringToAdr(const char *s, netadr_t *a);
-const char  *NET_AdrToString(netadr_t a);
-
-
-typedef void(__fastcall *CL_Netchan_Encode_t)(msg_t*);
-extern CL_Netchan_Encode_t CL_Netchan_Encode;
-
-typedef void(*Netchan_Transmit_t)(int chan, int length, const BYTE *data);
-extern Netchan_Transmit_t Netchan_Transmit;
-
-typedef void(*Netchan_TransmitNextFragment_t)(int chan);
-extern Netchan_TransmitNextFragment_t Netchan_TransmitNextFragment;
-
-typedef void(*MSG_initHuffman_t)(void);
-extern MSG_initHuffman_t MSG_initHuffman;
-
-//void MSG_Init(msg_t *buf, byte *data, int length);
 
 char* trimSpaces(char* str);
 char* Q_CleanStr(char* string, bool colors = false);

@@ -370,187 +370,128 @@ extern "C" {
 
 	static HMODULE hMSS = NULL;
 
-	typedef void(*Com_Printf_t)(const char*, ...);
-	Com_Printf_t Com_Printf_o = (Com_Printf_t)0x4357B0;
-
-	char printmsg[1024] = { 0 };
-	void Com_Printf(const char *s) {
-
-		extern int codversion;
-
-		if (codversion != COD_1)
-			return;
-
-		if (!strcmp(printmsg, s))
-			return;
-
-		strncpy(printmsg, s, sizeof(printmsg) - 1);
-
-		//Com_Printf_o(s);
-	}
 
 	__declspec(naked) MSS_DLL_EXPORT void AIL_debug_printf() {
-		Com_Printf("^2Miles Debug: RIB_set_provider_user_data\n");
 		__asm jmp[pAIL_debug_printf]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void AIL_sprintf() {
-		Com_Printf("^2Miles Debug: RIB_set_provider_user_data\n");
 		__asm jmp[pAIL_sprintf]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void DLSClose() {
-		Com_Printf("^2Miles Debug: RIB_set_provider_user_data\n");
 		__asm jmp[pDLSClose]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void DLSCompactMemory() {
-		Com_Printf("^2Miles Debug: RIB_set_provider_user_data\n");
 		__asm jmp[pDLSCompactMemory]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void DLSGetInfo() {
-		Com_Printf("^2Miles Debug: RIB_set_provider_user_data\n");
 		__asm jmp[pDLSGetInfo]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void DLSLoadFile() {
-		Com_Printf("^2Miles Debug: RIB_set_provider_user_data\n");
 		__asm jmp[pDLSLoadFile]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void DLSLoadMemFile() {
-		Com_Printf("^2Miles Debug: RIB_set_provider_user_data\n");
 		__asm jmp[pDLSLoadMemFile]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void DLSMSSOpen() {
-		Com_Printf("^2Miles Debug: RIB_set_provider_user_data\n");
 		__asm jmp[pDLSMSSOpen]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void DLSSetAttribute() {
-		Com_Printf("^2Miles Debug: RIB_set_provider_user_data\n");
 		__asm jmp[pDLSSetAttribute]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void DLSUnloadAll() {
-		Com_Printf("^2Miles Debug: RIB_set_provider_user_data\n");
 		__asm jmp[pDLSUnloadAll]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void DLSUnloadFile() {
-		Com_Printf("^2Miles Debug: RIB_set_provider_user_data\n");
 		__asm jmp[pDLSUnloadFile]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void RIB_alloc_provider_handle() {
-		Com_Printf("^2Miles Debug: RIB_set_provider_user_data\n");
 		__asm jmp[pRIB_alloc_provider_handle]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void RIB_enumerate_interface() {
-		Com_Printf("^2Miles Debug: RIB_set_provider_user_data\n");
 		__asm jmp[pRIB_enumerate_interface]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void RIB_error() {
-		Com_Printf("^2Miles Debug: RIB_set_provider_user_data\n");
 		__asm jmp[pRIB_error]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void RIB_find_file_provider() {
-		Com_Printf("^2Miles Debug: RIB_set_provider_user_data\n");
 		__asm jmp[pRIB_find_file_provider]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void RIB_free_provider_handle() {
-		Com_Printf("^2Miles Debug: RIB_set_provider_user_data\n");
 		__asm jmp[pRIB_free_provider_handle]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void RIB_free_provider_library() {
-		Com_Printf("^2Miles Debug: RIB_set_provider_user_data\n");
 		__asm jmp[pRIB_free_provider_library]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void RIB_load_provider_library() {
-		Com_Printf("^2Miles Debug: RIB_set_provider_user_data\n");
 		__asm jmp[pRIB_load_provider_library]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void RIB_register_interface() {
-		Com_Printf("^2Miles Debug: RIB_set_provider_user_data\n");
 		__asm jmp[pRIB_register_interface]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void RIB_request_interface() {
-		Com_Printf("^2Miles Debug: RIB_set_provider_user_data\n");
 		__asm jmp[pRIB_request_interface]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void RIB_request_interface_entry() {
-		Com_Printf("^2Miles Debug: RIB_set_provider_user_data\n");
 		__asm jmp[pRIB_request_interface_entry]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void RIB_type_string() {
-		Com_Printf("^2Miles Debug: RIB_set_provider_user_data\n");
 		__asm jmp[pRIB_type_string]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void RIB_unregister_interface() {
-		Com_Printf("^2Miles Debug: RIB_set_provider_user_data\n");
 		__asm jmp[pRIB_unregister_interface]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_3D_distance_factor(DWORD a) {
-		Com_Printf("^2Miles Debug: AIL_3D_distance_factor\n");
 		__asm jmp[pAIL_3D_distance_factor]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_3D_doppler_factor(DWORD a) {
-		Com_Printf("^2Miles Debug: AIL_3D_doppler_factor\n");
 		__asm jmp[pAIL_3D_doppler_factor]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_3D_orientation(DWORD a, DWORD e, DWORD i, DWORD m, DWORD q, DWORD u, DWORD y) {
-		Com_Printf("^2Miles Debug: AIL_3D_orientation\n");
 		__asm jmp[pAIL_3D_orientation]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_3D_position(DWORD a, DWORD e, DWORD i, DWORD m) {
-		Com_Printf("^2Miles Debug: AIL_3D_position\n");
 		__asm jmp[pAIL_3D_position]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_3D_provider_attribute(DWORD a, DWORD e, DWORD i) {
-		Com_Printf("^2Miles Debug: AIL_3D_provider_attribute\n");
 		__asm jmp[pAIL_3D_provider_attribute]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_3D_rolloff_factor(DWORD a) {
-		Com_Printf("^2Miles Debug: AIL_3D_rolloff_factor\n");
 		__asm jmp[pAIL_3D_rolloff_factor]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_3D_room_type(DWORD a) {
-		Com_Printf("^2Miles Debug: AIL_3D_room_type\n");
 		__asm jmp[pAIL_3D_room_type]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_3D_sample_attribute(DWORD a, DWORD e, DWORD i) {
-		Com_Printf("^2Miles Debug: AIL_3D_sample_attribute\n");
 		__asm jmp[pAIL_3D_sample_attribute]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_3D_sample_cone(DWORD a, DWORD e, DWORD i, DWORD m) {
-		Com_Printf("^2Miles Debug: AIL_3D_sample_cone\n");
 		__asm jmp[pAIL_3D_sample_cone]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_3D_sample_distances(DWORD a, DWORD e, DWORD i) {
-		Com_Printf("^2Miles Debug: AIL_3D_sample_distances\n");
 		__asm jmp[pAIL_3D_sample_distances]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_3D_sample_effects_level(DWORD a) {
-		Com_Printf("^2Miles Debug: AIL_3D_sample_effects_level\n");
 		__asm jmp[pAIL_3D_sample_effects_level]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_3D_sample_exclusion(DWORD a) {
-		Com_Printf("^2Miles Debug: AIL_3D_sample_exclusion\n");
 		__asm jmp[pAIL_3D_sample_exclusion]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_3D_sample_length(DWORD a) {
-		Com_Printf("^2Miles Debug: AIL_3D_sample_length\n");
 		__asm jmp[pAIL_3D_sample_length]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_3D_sample_loop_count(DWORD a) {
-		Com_Printf("^2Miles Debug: AIL_3D_sample_loop_count\n");
 		__asm jmp[pAIL_3D_sample_loop_count]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_3D_sample_obstruction(DWORD a) {
-		Com_Printf("^2Miles Debug: AIL_3D_sample_obstruction\n");
 		__asm jmp[pAIL_3D_sample_obstruction]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_3D_sample_occlusion(DWORD a) {
-		Com_Printf("^2Miles Debug: AIL_3D_sample_occlusion\n");
 		__asm jmp[pAIL_3D_sample_occlusion]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_3D_sample_offset(DWORD a) {
-		Com_Printf("^2Miles Debug: AIL_3D_sample_offset\n");
 		__asm jmp[pAIL_3D_sample_offset]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_3D_sample_playback_rate(DWORD a) {
-		Com_Printf("^2Miles Debug: AIL_3D_sample_playback_rate\n");
 		__asm jmp[pAIL_3D_sample_playback_rate]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_3D_sample_status(DWORD a) {
@@ -558,1087 +499,816 @@ extern "C" {
 		__asm jmp[pAIL_3D_sample_status]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_3D_sample_volume(DWORD a) {
-		Com_Printf("^2Miles Debug: AIL_3D_sample_volume\n");
 		__asm jmp[pAIL_3D_sample_volume]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_3D_speaker_type(DWORD a) {
-		Com_Printf("^2Miles Debug: AIL_3D_speaker_type\n");
 		__asm jmp[pAIL_3D_speaker_type]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_3D_user_data(DWORD a, DWORD e) {
-		Com_Printf("^2Miles Debug: AIL_3D_user_data\n");
 		__asm jmp[pAIL_3D_user_data]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_3D_velocity(DWORD a, DWORD e, DWORD i, DWORD m) {
-		Com_Printf("^2Miles Debug: AIL_3D_velocity\n");
 		__asm jmp[pAIL_3D_velocity]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_DLS_close(DWORD a, DWORD e) {
-		Com_Printf("^2Miles Debug: AIL_DLS_close\n");
 		__asm jmp[pAIL_DLS_close]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_DLS_compact(DWORD a) {
-		Com_Printf("^2Miles Debug: AIL_DLS_compact\n");
 		__asm jmp[pAIL_DLS_compact]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_DLS_get_info(DWORD a, DWORD e, DWORD i) {
-		Com_Printf("^2Miles Debug: AIL_DLS_get_info\n");
 		__asm jmp[pAIL_DLS_get_info]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_DLS_get_reverb_levels(DWORD a, DWORD e, DWORD i) {
-		Com_Printf("^2Miles Debug: AIL_DLS_get_reverb_levels\n");
 		__asm jmp[pAIL_DLS_get_reverb_levels]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_DLS_load_file(DWORD a, DWORD e, DWORD i) {
-		Com_Printf("^2Miles Debug: AIL_DLS_load_file\n");
 		__asm jmp[pAIL_DLS_load_file]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_DLS_load_memory(DWORD a, DWORD e, DWORD i) {
-		Com_Printf("^2Miles Debug: AIL_DLS_load_memory\n");
 		__asm jmp[pAIL_DLS_load_memory]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_DLS_open(DWORD a, DWORD e, DWORD i, DWORD m, DWORD q, DWORD u, DWORD y) {
-		Com_Printf("^2Miles Debug: AIL_DLS_open\n");
 		__asm jmp[pAIL_DLS_open]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_DLS_set_reverb_levels(DWORD a, DWORD e, DWORD i) {
-		Com_Printf("^2Miles Debug: AIL_DLS_set_reverb_levels\n");
 		__asm jmp[pAIL_DLS_set_reverb_levels]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_DLS_unload(DWORD a, DWORD e) {
-		Com_Printf("^2Miles Debug: AIL_DLS_unload\n");
 		__asm jmp[pAIL_DLS_unload]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_HWND() {
-		Com_Printf("^2Miles Debug: AIL_HWND\n");
 		__asm jmp[pAIL_HWND]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_MIDI_handle_reacquire(DWORD a) {
-		Com_Printf("^2Miles Debug: AIL_MIDI_handle_reacquire\n");
 		__asm jmp[pAIL_MIDI_handle_reacquire]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_MIDI_handle_release(DWORD a) {
-		Com_Printf("^2Miles Debug: AIL_MIDI_handle_release\n");
 		__asm jmp[pAIL_MIDI_handle_release]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_MIDI_to_XMI(DWORD a, DWORD e, DWORD i, DWORD m, DWORD q) {
-		Com_Printf("^2Miles Debug: AIL_MIDI_to_XMI\n");
 		__asm jmp[pAIL_MIDI_to_XMI]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_MMX_available() {
-		Com_Printf("^2Miles Debug: AIL_MMX_available\n");
 		__asm jmp[pAIL_MMX_available]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_WAV_file_write(DWORD a, DWORD e, DWORD i, DWORD m, DWORD q) {
-		Com_Printf("^2Miles Debug: AIL_WAV_file_write\n");
 		__asm jmp[pAIL_WAV_file_write]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_WAV_info(DWORD a, DWORD e) {
-		Com_Printf("^2Miles Debug: AIL_WAV_info\n");
 		__asm jmp[pAIL_WAV_info]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_XMIDI_master_volume(DWORD a) {
-		Com_Printf("^2Miles Debug: AIL_XMIDI_master_volume\n");
 		__asm jmp[pAIL_XMIDI_master_volume]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_active_3D_sample_count(DWORD a) {
-		Com_Printf("^2Miles Debug: AIL_active_3D_sample_count\n");
 		__asm jmp[pAIL_active_3D_sample_count]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_active_sample_count(DWORD a) {
-		Com_Printf("^2Miles Debug: AIL_active_sample_count\n");
 		__asm jmp[pAIL_active_sample_count]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_active_sequence_count(DWORD a) {
-		Com_Printf("^2Miles Debug: AIL_active_sequence_count\n");
 		__asm jmp[pAIL_active_sequence_count]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_allocate_3D_sample_handle(DWORD a) {
-		Com_Printf("^2Miles Debug: AIL_allocate_3D_sample_handle\n");
 		__asm jmp[pAIL_allocate_3D_sample_handle]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_allocate_file_sample(DWORD a, DWORD e, DWORD i) {
-		Com_Printf("^2Miles Debug: AIL_allocate_file_sample\n");
 		__asm jmp[pAIL_allocate_file_sample]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_allocate_sample_handle(DWORD a) {
-		Com_Printf("^2Miles Debug: AIL_allocate_sample_handle\n");
 		__asm jmp[pAIL_allocate_sample_handle]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_allocate_sequence_handle(DWORD a) {
-		Com_Printf("^2Miles Debug: AIL_allocate_sequence_handle\n");
 		__asm jmp[pAIL_allocate_sequence_handle]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_auto_service_stream(DWORD a, DWORD e) {
-		Com_Printf("^2Miles Debug: AIL_auto_service_stream\n");
 		__asm jmp[pAIL_auto_service_stream]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_auto_update_3D_position(DWORD a, DWORD e) {
-		Com_Printf("^2Miles Debug: AIL_auto_update_3D_position\n");
 		__asm jmp[pAIL_auto_update_3D_position]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_background() {
-		Com_Printf("^2Miles Debug: AIL_background\n");
 		__asm jmp[pAIL_background]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_branch_index(DWORD a, DWORD e) {
-		Com_Printf("^2Miles Debug: AIL_branch_index\n");
 		__asm jmp[pAIL_branch_index]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_channel_notes(DWORD a, DWORD e) {
-		Com_Printf("^2Miles Debug: AIL_channel_notes\n");
 		__asm jmp[pAIL_channel_notes]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_close_3D_listener(DWORD a) {
-		Com_Printf("^2Miles Debug: AIL_close_3D_listener\n");
 		__asm jmp[pAIL_close_3D_listener]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_close_3D_object(DWORD a) {
-		Com_Printf("^2Miles Debug: AIL_close_3D_object\n");
 		__asm jmp[pAIL_close_3D_object]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_close_3D_provider(DWORD a) {
-		Com_Printf("^2Miles Debug: AIL_close_3D_provider\n");
 		__asm jmp[pAIL_close_3D_provider]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_close_XMIDI_driver(DWORD a) {
-		Com_Printf("^2Miles Debug: AIL_close_XMIDI_driver\n");
 		__asm jmp[pAIL_close_XMIDI_driver]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_close_digital_driver(DWORD a) {
-		Com_Printf("^2Miles Debug: AIL_close_digital_driver\n");
 		__asm jmp[pAIL_close_digital_driver]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_close_filter(DWORD a) {
-		Com_Printf("^2Miles Debug: AIL_close_filter\n");
 		__asm jmp[pAIL_close_filter]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_close_input(DWORD a) {
-		Com_Printf("^2Miles Debug: AIL_close_input\n");
 		__asm jmp[pAIL_close_input]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_close_stream(DWORD a) {
-		Com_Printf("^2Miles Debug: AIL_close_stream\n");
 		__asm jmp[pAIL_close_stream]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_compress_ADPCM(DWORD a, DWORD e, DWORD i) {
-		Com_Printf("^2Miles Debug: AIL_compress_ADPCM\n");
 		__asm jmp[pAIL_compress_ADPCM]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_compress_ASI(DWORD a, DWORD e, DWORD i, DWORD m, DWORD q) {
-		Com_Printf("^2Miles Debug: AIL_compress_ASI\n");
 		__asm jmp[pAIL_compress_ASI]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_compress_DLS(DWORD a, DWORD e, DWORD i, DWORD m, DWORD q) {
-		Com_Printf("^2Miles Debug: AIL_compress_DLS\n");
 		__asm jmp[pAIL_compress_DLS]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_controller_value(DWORD a, DWORD e, DWORD i) {
-		Com_Printf("^2Miles Debug: AIL_controller_value\n");
 		__asm jmp[pAIL_controller_value]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_create_wave_synthesizer(DWORD a, DWORD e, DWORD i, DWORD m) {
-		Com_Printf("^2Miles Debug: AIL_create_wave_synthesizer\n");
 		__asm jmp[pAIL_create_wave_synthesizer]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_decompress_ADPCM(DWORD a, DWORD e, DWORD i) {
-		Com_Printf("^2Miles Debug: AIL_decompress_ADPCM\n");
 		__asm jmp[pAIL_decompress_ADPCM]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_decompress_ASI(DWORD a, DWORD e, DWORD i, DWORD m, DWORD q, DWORD u) {
-		Com_Printf("^2Miles Debug: AIL_decompress_ASI\n");
 		__asm jmp[pAIL_decompress_ASI]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_delay(DWORD a) {
-		Com_Printf("^2Miles Debug: AIL_delay\n");
 		__asm jmp[pAIL_delay]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_destroy_wave_synthesizer(DWORD a) {
-		Com_Printf("^2Miles Debug: AIL_destroy_wave_synthesizer\n");
 		__asm jmp[pAIL_destroy_wave_synthesizer]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_digital_CPU_percent(DWORD a) {
-		Com_Printf("^2Miles Debug: AIL_digital_CPU_percent\n");
 		__asm jmp[pAIL_digital_CPU_percent]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_digital_configuration(DWORD a, DWORD e, DWORD i, DWORD m) {
-		Com_Printf("^2Miles Debug: AIL_digital_configuration\n");
 		__asm jmp[pAIL_digital_configuration]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_digital_handle_reacquire(DWORD a) {
-		Com_Printf("^2Miles Debug: AIL_digital_handle_reacquire\n");
 		__asm jmp[pAIL_digital_handle_reacquire]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_digital_handle_release(DWORD a) {
-		Com_Printf("^2Miles Debug: AIL_digital_handle_release\n");
 		__asm jmp[pAIL_digital_handle_release]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_digital_latency(DWORD a) {
-		Com_Printf("^2Miles Debug: AIL_digital_latency\n");
 		__asm jmp[pAIL_digital_latency]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_digital_master_reverb(DWORD a, DWORD e, DWORD i, DWORD m) {
-		Com_Printf("^2Miles Debug: AIL_digital_master_reverb\n");
 		__asm jmp[pAIL_digital_master_reverb]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_digital_master_reverb_levels(DWORD a, DWORD e, DWORD i) {
-		Com_Printf("^2Miles Debug: AIL_digital_master_reverb_levels\n");
 		__asm jmp[pAIL_digital_master_reverb_levels]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_digital_master_volume_level(DWORD a) {
-		Com_Printf("^2Miles Debug: AIL_digital_master_volume_level\n");
 		__asm jmp[pAIL_digital_master_volume_level]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_end_3D_sample(DWORD a) {
-		Com_Printf("^2Miles Debug: AIL_end_3D_sample\n");
 		__asm jmp[pAIL_end_3D_sample]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_end_sample(DWORD a) {
-		Com_Printf("^2Miles Debug: AIL_end_sample\n");
 		__asm jmp[pAIL_end_sample]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_end_sequence(DWORD a) {
-		Com_Printf("^2Miles Debug: AIL_end_sequence\n");
 		__asm jmp[pAIL_end_sequence]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_enumerate_3D_provider_attributes(DWORD a, DWORD e, DWORD i) {
-		Com_Printf("^2Miles Debug: AIL_enumerate_3D_provider_attributes\n");
 		__asm jmp[pAIL_enumerate_3D_provider_attributes]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_enumerate_3D_providers(DWORD a, DWORD e, DWORD i) {
-		Com_Printf("^2Miles Debug: AIL_enumerate_3D_providers\n");
 		__asm jmp[pAIL_enumerate_3D_providers]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_enumerate_3D_sample_attributes(DWORD a, DWORD e, DWORD i) {
-		Com_Printf("^2Miles Debug: AIL_enumerate_3D_sample_attributes\n");
 		__asm jmp[pAIL_enumerate_3D_sample_attributes]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_enumerate_filter_attributes(DWORD a, DWORD e, DWORD i) {
-		Com_Printf("^2Miles Debug: AIL_enumerate_filter_attributes\n");
 		__asm jmp[pAIL_enumerate_filter_attributes]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_enumerate_filter_sample_attributes(DWORD a, DWORD e, DWORD i) {
-		Com_Printf("^2Miles Debug: AIL_enumerate_filter_sample_attributes\n");
 		__asm jmp[pAIL_enumerate_filter_sample_attributes]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_enumerate_filters(DWORD a, DWORD e, DWORD i) {
-		Com_Printf("^2Miles Debug: AIL_enumerate_filters\n");
 		__asm jmp[pAIL_enumerate_filters]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_extract_DLS(DWORD a, DWORD e, DWORD i, DWORD m, DWORD q, DWORD u, DWORD y) {
-		Com_Printf("^2Miles Debug: AIL_extract_DLS\n");
 		__asm jmp[pAIL_extract_DLS]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_file_error() {
-		Com_Printf("^2Miles Debug: AIL_file_error\n");
 		__asm jmp[pAIL_file_error]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_file_read(DWORD a, DWORD e) {
-		Com_Printf("^2Miles Debug: AIL_file_read\n");
 		__asm jmp[pAIL_file_read]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_file_size(DWORD a) {
-		Com_Printf("^2Miles Debug: AIL_file_size\n");
 		__asm jmp[pAIL_file_size]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_file_type(DWORD a, DWORD e) {
-		Com_Printf("^2Miles Debug: AIL_file_type\n");
 		__asm jmp[pAIL_file_type]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_file_write(DWORD a, DWORD e, DWORD i) {
-		Com_Printf("^2Miles Debug: AIL_file_write\n");
 		__asm jmp[pAIL_file_write]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_filter_DLS_attribute(DWORD a, DWORD e, DWORD i) {
-		Com_Printf("^2Miles Debug: AIL_filter_DLS_attribute\n");
 		__asm jmp[pAIL_filter_DLS_attribute]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_filter_DLS_with_XMI(DWORD a, DWORD e, DWORD i, DWORD m, DWORD q, DWORD u) {
-		Com_Printf("^2Miles Debug: AIL_filter_DLS_with_XMI\n");
 		__asm jmp[pAIL_filter_DLS_with_XMI]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_filter_attribute(DWORD a, DWORD e, DWORD i) {
-		Com_Printf("^2Miles Debug: AIL_filter_attribute\n");
 		__asm jmp[pAIL_filter_attribute]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_filter_sample_attribute(DWORD a, DWORD e, DWORD i) {
-		Com_Printf("^2Miles Debug: AIL_filter_sample_attribute\n");
 		__asm jmp[pAIL_filter_sample_attribute]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_filter_stream_attribute(DWORD a, DWORD e, DWORD i) {
-		Com_Printf("^2Miles Debug: AIL_filter_stream_attribute\n");
 		__asm jmp[pAIL_filter_stream_attribute]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_find_DLS(DWORD a, DWORD e, DWORD i, DWORD m, DWORD q, DWORD u) {
-		Com_Printf("^2Miles Debug: AIL_find_DLS\n");
 		__asm jmp[pAIL_find_DLS]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_get_DirectSound_info(DWORD a, DWORD e, DWORD i) {
-		Com_Printf("^2Miles Debug: AIL_get_DirectSound_info\n");
 		__asm jmp[pAIL_get_DirectSound_info]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_get_input_info(DWORD a) {
-		Com_Printf("^2Miles Debug: AIL_get_input_info\n");
 		__asm jmp[pAIL_get_input_info]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_get_preference(DWORD a) {
-		Com_Printf("^2Miles Debug: AIL_get_preference\n");
 		__asm jmp[pAIL_get_preference]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_get_timer_highest_delay() {
-		Com_Printf("^2Miles Debug: AIL_get_timer_highest_delay\n");
 		__asm jmp[pAIL_get_timer_highest_delay]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_init_sample(DWORD a) {
-		Com_Printf("^2Miles Debug: AIL_init_sample\n");
 		__asm jmp[pAIL_init_sample]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_init_sequence(DWORD a, DWORD e, DWORD i) {
-		Com_Printf("^2Miles Debug: AIL_init_sequence\n");
 		__asm jmp[pAIL_init_sequence]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_last_error() {
-		Com_Printf("^2Miles Debug: AIL_last_error\n");
 		__asm jmp[pAIL_last_error]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_list_DLS(DWORD a, DWORD e, DWORD i, DWORD m, DWORD q) {
-		Com_Printf("^2Miles Debug: AIL_list_DLS\n");
 		__asm jmp[pAIL_list_DLS]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_list_MIDI(DWORD a, DWORD e, DWORD i, DWORD m, DWORD q) {
-		Com_Printf("^2Miles Debug: AIL_list_MIDI\n");
 		__asm jmp[pAIL_list_MIDI]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_load_sample_buffer(DWORD a, DWORD e, DWORD i, DWORD m) {
-		Com_Printf("^2Miles Debug: AIL_load_sample_buffer\n");
 		__asm jmp[pAIL_load_sample_buffer]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_lock() {
-		Com_Printf("^2Miles Debug: AIL_lock\n");
 		__asm jmp[pAIL_lock]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_lock_channel(DWORD a) {
-		Com_Printf("^2Miles Debug: AIL_lock_channel\n");
 		__asm jmp[pAIL_lock_channel]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_lock_mutex() {
-		Com_Printf("^2Miles Debug: AIL_lock_mutex\n");
 		__asm jmp[pAIL_lock_mutex]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_map_sequence_channel(DWORD a, DWORD e, DWORD i) {
-		Com_Printf("^2Miles Debug: AIL_map_sequence_channel\n");
 		__asm jmp[pAIL_map_sequence_channel]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_mem_alloc_lock(DWORD a) {
-		Com_Printf("^2Miles Debug: AIL_mem_alloc_lock\n");
 		__asm jmp[pAIL_mem_alloc_lock]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_mem_free_lock(DWORD a) {
-		Com_Printf("^2Miles Debug: AIL_mem_free_lock\n");
 		__asm jmp[pAIL_mem_free_lock]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_mem_use_free(DWORD a) {
-		Com_Printf("^2Miles Debug: AIL_mem_use_free\n");
 		__asm jmp[pAIL_mem_use_free]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_mem_use_malloc(DWORD a) {
-		Com_Printf("^2Miles Debug: AIL_mem_use_malloc\n");
 		__asm jmp[pAIL_mem_use_malloc]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_merge_DLS_with_XMI(DWORD a, DWORD e, DWORD i, DWORD m) {
-		Com_Printf("^2Miles Debug: AIL_merge_DLS_with_XMI\n");
 		__asm jmp[pAIL_merge_DLS_with_XMI]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_midiOutClose(DWORD a) {
-		Com_Printf("^2Miles Debug: AIL_midiOutClose\n");
 		__asm jmp[pAIL_midiOutClose]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_midiOutOpen(DWORD a, DWORD e, DWORD i) {
-		Com_Printf("^2Miles Debug: AIL_midiOutOpen\n");
 		__asm jmp[pAIL_midiOutOpen]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_minimum_sample_buffer_size(DWORD a, DWORD e, DWORD i) {
-		Com_Printf("^2Miles Debug: AIL_minimum_sample_buffer_size\n");
 		__asm jmp[pAIL_minimum_sample_buffer_size]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_ms_count() {
-		Com_Printf("^2Miles Debug: AIL_ms_count\n");
 		__asm jmp[pAIL_ms_count]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_open_3D_listener(DWORD a) {
-		Com_Printf("^2Miles Debug: AIL_open_3D_listener\n");
 		__asm jmp[pAIL_open_3D_listener]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_open_3D_object(DWORD a) {
-		Com_Printf("^2Miles Debug: AIL_open_3D_object\n");
 		__asm jmp[pAIL_open_3D_object]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_open_3D_provider(DWORD a) {
-		Com_Printf("^2Miles Debug: AIL_open_3D_provider\n");
 		__asm jmp[pAIL_open_3D_provider]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_open_XMIDI_driver(DWORD a) {
-		Com_Printf("^2Miles Debug: AIL_open_XMIDI_driver\n");
 		__asm jmp[pAIL_open_XMIDI_driver]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_open_digital_driver(DWORD a, DWORD e, DWORD i, DWORD m) {
-		Com_Printf("^2Miles Debug: AIL_open_digital_driver\n");
 		__asm jmp[pAIL_open_digital_driver]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_open_filter(DWORD a, DWORD e) {
-		Com_Printf("^2Miles Debug: AIL_open_filter\n");
 		__asm jmp[pAIL_open_filter]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_open_input(DWORD a) {
-		Com_Printf("^2Miles Debug: AIL_open_input\n");
 		__asm jmp[pAIL_open_input]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_open_stream(DWORD a, DWORD e, DWORD i) {
-		Com_Printf("^2Miles Debug: AIL_open_stream\n");
 		__asm jmp[pAIL_open_stream]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_pause_stream(DWORD a, DWORD e) {
-		Com_Printf("^2Miles Debug: AIL_pause_stream\n");
 		__asm jmp[pAIL_pause_stream]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_primary_digital_driver(DWORD a) {
-		Com_Printf("^2Miles Debug: AIL_primary_digital_driver\n");
 		__asm jmp[pAIL_primary_digital_driver]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_process_digital_audio(DWORD a, DWORD e, DWORD i, DWORD m, DWORD q, DWORD u) {
-		Com_Printf("^2Miles Debug: AIL_process_digital_audio\n");
 		__asm jmp[pAIL_process_digital_audio]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_quick_copy(DWORD a) {
-		Com_Printf("^2Miles Debug: AIL_quick_copy\n");
 		__asm jmp[pAIL_quick_copy]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_quick_halt(DWORD a) {
-		Com_Printf("^2Miles Debug: AIL_quick_halt\n");
 		__asm jmp[pAIL_quick_halt]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_quick_handles(DWORD a, DWORD e, DWORD i) {
-		Com_Printf("^2Miles Debug: AIL_quick_handles\n");
 		__asm jmp[pAIL_quick_handles]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_quick_load(DWORD a) {
-		Com_Printf("^2Miles Debug: AIL_quick_load\n");
 		__asm jmp[pAIL_quick_load]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_quick_load_and_play(DWORD a, DWORD e, DWORD i) {
-		Com_Printf("^2Miles Debug: AIL_quick_load_and_play\n");
 		__asm jmp[pAIL_quick_load_and_play]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_quick_load_mem(DWORD a, DWORD e) {
-		Com_Printf("^2Miles Debug: AIL_quick_load_mem\n");
 		__asm jmp[pAIL_quick_load_mem]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_quick_ms_length(DWORD a) {
-		Com_Printf("^2Miles Debug: AIL_quick_ms_length\n");
 		__asm jmp[pAIL_quick_ms_length]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_quick_ms_position(DWORD a) {
-		Com_Printf("^2Miles Debug: AIL_quick_ms_position\n");
 		__asm jmp[pAIL_quick_ms_position]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_quick_play(DWORD a, DWORD e) {
-		Com_Printf("^2Miles Debug: AIL_quick_play\n");
 		__asm jmp[pAIL_quick_play]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_quick_set_low_pass_cut_off(DWORD a, DWORD e) {
-		Com_Printf("^2Miles Debug: AIL_quick_set_low_pass_cut_off\n");
 		__asm jmp[pAIL_quick_set_low_pass_cut_off]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_quick_set_ms_position(DWORD a, DWORD e) {
-		Com_Printf("^2Miles Debug: AIL_quick_set_ms_position\n");
 		__asm jmp[pAIL_quick_set_ms_position]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_quick_set_reverb_levels(DWORD a, DWORD e, DWORD i) {
-		Com_Printf("^2Miles Debug: AIL_quick_set_reverb_levels\n");
 		__asm jmp[pAIL_quick_set_reverb_levels]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_quick_set_speed(DWORD a, DWORD e) {
-		Com_Printf("^2Miles Debug: AIL_quick_set_speed\n");
 		__asm jmp[pAIL_quick_set_speed]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_quick_set_volume(DWORD a, DWORD e, DWORD i) {
-		Com_Printf("^2Miles Debug: AIL_quick_set_volume\n");
 		__asm jmp[pAIL_quick_set_volume]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_quick_shutdown() {
-		Com_Printf("^2Miles Debug: AIL_quick_shutdown\n");
 		__asm jmp[pAIL_quick_shutdown]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_quick_startup(DWORD a, DWORD e, DWORD i, DWORD m, DWORD q) {
-		Com_Printf("^2Miles Debug: AIL_quick_startup\n");
 		__asm jmp[pAIL_quick_startup]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_quick_status(DWORD a) {
-		Com_Printf("^2Miles Debug: AIL_quick_status\n");
 		__asm jmp[pAIL_quick_status]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_quick_type(DWORD a) {
-		Com_Printf("^2Miles Debug: AIL_quick_type\n");
 		__asm jmp[pAIL_quick_type]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_quick_unload(DWORD a) {
-		Com_Printf("^2Miles Debug: AIL_quick_unload\n");
 		__asm jmp[pAIL_quick_unload]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_redbook_close(DWORD a) {
-		Com_Printf("^2Miles Debug: AIL_redbook_close\n");
 		__asm jmp[pAIL_redbook_close]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_redbook_eject(DWORD a) {
-		Com_Printf("^2Miles Debug: AIL_redbook_eject\n");
 		__asm jmp[pAIL_redbook_eject]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_redbook_id(DWORD a) {
-		Com_Printf("^2Miles Debug: AIL_redbook_id\n");
 		__asm jmp[pAIL_redbook_id]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_redbook_open(DWORD a) {
-		Com_Printf("^2Miles Debug: AIL_redbook_open\n");
 		__asm jmp[pAIL_redbook_open]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_redbook_open_drive(DWORD a) {
-		Com_Printf("^2Miles Debug: AIL_redbook_open_drive\n");
 		__asm jmp[pAIL_redbook_open_drive]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_redbook_pause(DWORD a) {
-		Com_Printf("^2Miles Debug: AIL_redbook_pause\n");
 		__asm jmp[pAIL_redbook_pause]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_redbook_play(DWORD a, DWORD e, DWORD i) {
-		Com_Printf("^2Miles Debug: AIL_redbook_play\n");
 		__asm jmp[pAIL_redbook_play]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_redbook_position(DWORD a) {
-		Com_Printf("^2Miles Debug: AIL_redbook_position\n");
 		__asm jmp[pAIL_redbook_position]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_redbook_resume(DWORD a) {
-		Com_Printf("^2Miles Debug: AIL_redbook_resume\n");
 		__asm jmp[pAIL_redbook_resume]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_redbook_retract(DWORD a) {
-		Com_Printf("^2Miles Debug: AIL_redbook_retract\n");
 		__asm jmp[pAIL_redbook_retract]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_redbook_set_volume_level(DWORD a, DWORD e) {
-		Com_Printf("^2Miles Debug: AIL_redbook_set_volume_level\n");
 		__asm jmp[pAIL_redbook_set_volume_level]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_redbook_status(DWORD a) {
-		Com_Printf("^2Miles Debug: AIL_redbook_status\n");
 		__asm jmp[pAIL_redbook_status]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_redbook_stop(DWORD a) {
-		Com_Printf("^2Miles Debug: AIL_redbook_stop\n");
 		__asm jmp[pAIL_redbook_stop]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_redbook_track(DWORD a) {
-		Com_Printf("^2Miles Debug: AIL_redbook_track\n");
 		__asm jmp[pAIL_redbook_track]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_redbook_track_info(DWORD a, DWORD e, DWORD i, DWORD m) {
-		Com_Printf("^2Miles Debug: AIL_redbook_track_info\n");
 		__asm jmp[pAIL_redbook_track_info]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_redbook_tracks(DWORD a) {
-		Com_Printf("^2Miles Debug: AIL_redbook_tracks\n");
 		__asm jmp[pAIL_redbook_tracks]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_redbook_volume_level(DWORD a) {
-		Com_Printf("^2Miles Debug: AIL_redbook_volume_level\n");
 		__asm jmp[pAIL_redbook_volume_level]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_register_3D_EOS_callback(DWORD a, DWORD e) {
-		Com_Printf("^2Miles Debug: AIL_register_3D_EOS_callback\n");
 		__asm jmp[pAIL_register_3D_EOS_callback]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_register_EOB_callback(DWORD a, DWORD e) {
-		Com_Printf("^2Miles Debug: AIL_register_EOB_callback\n");
 		__asm jmp[pAIL_register_EOB_callback]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_register_EOF_callback(DWORD a, DWORD e) {
-		Com_Printf("^2Miles Debug: AIL_register_EOF_callback\n");
 		__asm jmp[pAIL_register_EOF_callback]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_register_EOS_callback(DWORD a, DWORD e) {
-		Com_Printf("^2Miles Debug: AIL_register_EOS_callback\n");
 		__asm jmp[pAIL_register_EOS_callback]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_register_ICA_array(DWORD a, DWORD e) {
-		Com_Printf("^2Miles Debug: AIL_register_ICA_array\n");
 		__asm jmp[pAIL_register_ICA_array]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_register_SOB_callback(DWORD a, DWORD e) {
-		Com_Printf("^2Miles Debug: AIL_register_SOB_callback\n");
 		__asm jmp[pAIL_register_SOB_callback]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_register_beat_callback(DWORD a, DWORD e) {
-		Com_Printf("^2Miles Debug: AIL_register_beat_callback\n");
 		__asm jmp[pAIL_register_beat_callback]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_register_event_callback(DWORD a, DWORD e) {
-		Com_Printf("^2Miles Debug: AIL_register_event_callback\n");
 		__asm jmp[pAIL_register_event_callback]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_register_prefix_callback(DWORD a, DWORD e) {
-		Com_Printf("^2Miles Debug: AIL_register_prefix_callback\n");
 		__asm jmp[pAIL_register_prefix_callback]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_register_sequence_callback(DWORD a, DWORD e) {
-		Com_Printf("^2Miles Debug: AIL_register_sequence_callback\n");
 		__asm jmp[pAIL_register_sequence_callback]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_register_stream_callback(DWORD a, DWORD e) {
-		Com_Printf("^2Miles Debug: AIL_register_stream_callback\n");
 		__asm jmp[pAIL_register_stream_callback]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_register_timbre_callback(DWORD a, DWORD e) {
-		Com_Printf("^2Miles Debug: AIL_register_timbre_callback\n");
 		__asm jmp[pAIL_register_timbre_callback]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_register_timer(DWORD a) {
-		Com_Printf("^2Miles Debug: AIL_register_timer\n");
 		__asm jmp[pAIL_register_timer]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_register_trigger_callback(DWORD a, DWORD e) {
-		Com_Printf("^2Miles Debug: AIL_register_trigger_callback\n");
 		__asm jmp[pAIL_register_trigger_callback]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_release_3D_sample_handle(DWORD a) {
-		Com_Printf("^2Miles Debug: AIL_release_3D_sample_handle\n");
 		__asm jmp[pAIL_release_3D_sample_handle]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_release_all_timers() {
-		Com_Printf("^2Miles Debug: AIL_release_all_timers\n");
 		__asm jmp[pAIL_release_all_timers]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_release_channel(DWORD a, DWORD e) {
-		Com_Printf("^2Miles Debug: AIL_release_channel\n");
 		__asm jmp[pAIL_release_channel]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_release_sample_handle(DWORD a) {
-		Com_Printf("^2Miles Debug: AIL_release_sample_handle\n");
 		__asm jmp[pAIL_release_sample_handle]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_release_sequence_handle(DWORD a) {
-		Com_Printf("^2Miles Debug: AIL_release_sequence_handle\n");
 		__asm jmp[pAIL_release_sequence_handle]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_release_timer_handle(DWORD a) {
-		Com_Printf("^2Miles Debug: AIL_release_timer_handle\n");
 		__asm jmp[pAIL_release_timer_handle]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_request_EOB_ASI_reset(DWORD a, DWORD e) {
-		Com_Printf("^2Miles Debug: AIL_request_EOB_ASI_reset\n");
 		__asm jmp[pAIL_request_EOB_ASI_reset]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_resume_3D_sample(DWORD a) {
-		Com_Printf("^2Miles Debug: AIL_resume_3D_sample\n");
 		__asm jmp[pAIL_resume_3D_sample]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_resume_sample(DWORD a) {
-		Com_Printf("^2Miles Debug: AIL_resume_sample\n");
 		__asm jmp[pAIL_resume_sample]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_resume_sequence(DWORD a) {
-		Com_Printf("^2Miles Debug: AIL_resume_sequence\n");
 		__asm jmp[pAIL_resume_sequence]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_sample_buffer_info(DWORD a, DWORD e, DWORD i, DWORD m, DWORD q) {
-		Com_Printf("^2Miles Debug: AIL_sample_buffer_info\n");
 		__asm jmp[pAIL_sample_buffer_info]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_sample_buffer_ready(DWORD a) {
-		Com_Printf("^2Miles Debug: AIL_sample_buffer_ready\n");
 		__asm jmp[pAIL_sample_buffer_ready]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_sample_granularity(DWORD a) {
-		Com_Printf("^2Miles Debug: AIL_sample_granularity\n");
 		__asm jmp[pAIL_sample_granularity]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_sample_loop_count(DWORD a) {
-		Com_Printf("^2Miles Debug: AIL_sample_loop_count\n");
 		__asm jmp[pAIL_sample_loop_count]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_sample_low_pass_cut_off(DWORD a) {
-		Com_Printf("^2Miles Debug: AIL_sample_low_pass_cut_off\n");
 		__asm jmp[pAIL_sample_low_pass_cut_off]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_sample_ms_position(DWORD a, DWORD e, DWORD i) {
-		Com_Printf("^2Miles Debug: AIL_sample_ms_position\n");
 		__asm jmp[pAIL_sample_ms_position]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_sample_playback_rate(DWORD a) {
-		Com_Printf("^2Miles Debug: AIL_sample_playback_rate\n");
 		__asm jmp[pAIL_sample_playback_rate]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_sample_position(DWORD a) {
-		Com_Printf("^2Miles Debug: AIL_sample_position\n");
 		__asm jmp[pAIL_sample_position]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_sample_reverb_levels(DWORD a, DWORD e, DWORD i) {
-		Com_Printf("^2Miles Debug: AIL_sample_reverb_levels\n");
 		__asm jmp[pAIL_sample_reverb_levels]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_sample_status(DWORD a) {
-		Com_Printf("^2Miles Debug: AIL_sample_status\n"); //no more sonic
 		__asm jmp[pAIL_sample_status]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_sample_user_data(DWORD a, DWORD e) {
-		Com_Printf("^2Miles Debug: AIL_sample_user_data\n");
 		__asm jmp[pAIL_sample_user_data]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_sample_volume_levels(DWORD a, DWORD e, DWORD i) {
-		Com_Printf("^2Miles Debug: AIL_sample_volume_levels\n");
 		__asm jmp[pAIL_sample_volume_levels]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_sample_volume_pan(DWORD a, DWORD e, DWORD i) {
-		Com_Printf("^2Miles Debug: AIL_sample_volume_pan\n");
 		__asm jmp[pAIL_sample_volume_pan]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_send_channel_voice_message(DWORD a, DWORD e, DWORD i, DWORD m, DWORD q) {
-		Com_Printf("^2Miles Debug: AIL_send_channel_voice_message\n");
 		__asm jmp[pAIL_send_channel_voice_message]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_send_sysex_message(DWORD a, DWORD e) {
-		Com_Printf("^2Miles Debug: AIL_send_sysex_message\n");
 		__asm jmp[pAIL_send_sysex_message]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_sequence_loop_count(DWORD a) {
-		Com_Printf("^2Miles Debug: AIL_sequence_loop_count\n");
 		__asm jmp[pAIL_sequence_loop_count]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_sequence_ms_position(DWORD a, DWORD e, DWORD i) {
-		Com_Printf("^2Miles Debug: AIL_sequence_ms_position\n");
 		__asm jmp[pAIL_sequence_ms_position]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_sequence_position(DWORD a, DWORD e, DWORD i) {
-		Com_Printf("^2Miles Debug: AIL_sequence_position\n");
 		__asm jmp[pAIL_sequence_position]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_sequence_status(DWORD a) {
-		Com_Printf("^2Miles Debug: AIL_sequence_status\n");
 		__asm jmp[pAIL_sequence_status]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_sequence_tempo(DWORD a) {
-		Com_Printf("^2Miles Debug: AIL_sequence_tempo\n");
 		__asm jmp[pAIL_sequence_tempo]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_sequence_user_data(DWORD a, DWORD e) {
-		Com_Printf("^2Miles Debug: AIL_sequence_user_data\n");
 		__asm jmp[pAIL_sequence_user_data]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_sequence_volume(DWORD a) {
-		Com_Printf("^2Miles Debug: AIL_sequence_volume\n");
 		__asm jmp[pAIL_sequence_volume]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_serve() {
-		Com_Printf("^2Miles Debug: AIL_serve\n");
 		__asm jmp[pAIL_serve]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_service_stream(DWORD a, DWORD e) {
-		Com_Printf("^2Miles Debug: AIL_service_stream\n");
 		__asm jmp[pAIL_service_stream]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_set_3D_distance_factor(DWORD a, DWORD e) {
-		Com_Printf("^2Miles Debug: AIL_set_3D_distance_factor\n");
 		__asm jmp[pAIL_set_3D_distance_factor]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_set_3D_doppler_factor(DWORD a, DWORD e) {
-		Com_Printf("^2Miles Debug: AIL_set_3D_doppler_factor\n");
 		__asm jmp[pAIL_set_3D_doppler_factor]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_set_3D_orientation(DWORD a, DWORD e, DWORD i, DWORD m, DWORD q, DWORD u, DWORD y) {
-		Com_Printf("^2Miles Debug: AIL_set_3D_orientation\n");
 		__asm jmp[pAIL_set_3D_orientation]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_set_3D_position(DWORD a, DWORD e, DWORD i, DWORD m) {
-		Com_Printf("^2Miles Debug: AIL_set_3D_position\n");
 		__asm jmp[pAIL_set_3D_position]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_set_3D_provider_preference(DWORD a, DWORD e, DWORD i) {
-		Com_Printf("^2Miles Debug: AIL_set_3D_provider_preference\n");
 		__asm jmp[pAIL_set_3D_provider_preference]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_set_3D_rolloff_factor(DWORD a, DWORD e) {
-		Com_Printf("^2Miles Debug: AIL_set_3D_rolloff_factor\n");
 		__asm jmp[pAIL_set_3D_rolloff_factor]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_set_3D_room_type(DWORD a, DWORD e) {
-		Com_Printf("^2Miles Debug: AIL_set_3D_room_type\n");
 		__asm jmp[pAIL_set_3D_room_type]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_set_3D_sample_cone(DWORD a, DWORD e, DWORD i, DWORD m) {
-		Com_Printf("^2Miles Debug: AIL_set_3D_sample_cone\n");
 		__asm jmp[pAIL_set_3D_sample_cone]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_set_3D_sample_distances(DWORD a, DWORD e, DWORD i) {
-		Com_Printf("^2Miles Debug: AIL_set_3D_sample_distances\n");
 		__asm jmp[pAIL_set_3D_sample_distances]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_set_3D_sample_effects_level(DWORD a, DWORD e) {
-		Com_Printf("^2Miles Debug: AIL_set_3D_sample_effects_level\n");
 		__asm jmp[pAIL_set_3D_sample_effects_level]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_set_3D_sample_exclusion(DWORD a, DWORD e) {
-		Com_Printf("^2Miles Debug: AIL_set_3D_sample_exclusion\n");
 		__asm jmp[pAIL_set_3D_sample_exclusion]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_set_3D_sample_file(DWORD a, DWORD e) {
-		Com_Printf("^2Miles Debug: AIL_set_3D_sample_file\n");
 		__asm jmp[pAIL_set_3D_sample_file]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_set_3D_sample_info(DWORD a, DWORD e) {
-		Com_Printf("^2Miles Debug: AIL_set_3D_sample_info\n");
 		__asm jmp[pAIL_set_3D_sample_info]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_set_3D_sample_loop_block(DWORD a, DWORD e, DWORD i) {
-		Com_Printf("^2Miles Debug: AIL_set_3D_sample_loop_block\n");
 		__asm jmp[pAIL_set_3D_sample_loop_block]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_set_3D_sample_loop_count(DWORD a, DWORD e) {
-		Com_Printf("^2Miles Debug: AIL_set_3D_sample_loop_count\n");
 		__asm jmp[pAIL_set_3D_sample_loop_count]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_set_3D_sample_obstruction(DWORD a, DWORD e) {
-		Com_Printf("^2Miles Debug: AIL_set_3D_sample_obstruction\n");
 		__asm jmp[pAIL_set_3D_sample_obstruction]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_set_3D_sample_occlusion(DWORD a, DWORD e) {
-		Com_Printf("^2Miles Debug: AIL_set_3D_sample_occlusion\n");
 		__asm jmp[pAIL_set_3D_sample_occlusion]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_set_3D_sample_offset(DWORD a, DWORD e) {
-		Com_Printf("^2Miles Debug: AIL_set_3D_sample_offset\n");
 		__asm jmp[pAIL_set_3D_sample_offset]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_set_3D_sample_playback_rate(DWORD a, DWORD e) {
-		Com_Printf("^2Miles Debug: AIL_set_3D_sample_playback_rate\n");
 		__asm jmp[pAIL_set_3D_sample_playback_rate]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_set_3D_sample_preference(DWORD a, DWORD e, DWORD i) {
-		Com_Printf("^2Miles Debug: AIL_set_3D_sample_preference\n");
 		__asm jmp[pAIL_set_3D_sample_preference]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_set_3D_sample_volume(DWORD a, DWORD e) {
-		Com_Printf("^2Miles Debug: AIL_set_3D_sample_volume\n");
 		__asm jmp[pAIL_set_3D_sample_volume]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_set_3D_speaker_type(DWORD a, DWORD e) {
-		Com_Printf("^2Miles Debug: AIL_set_3D_speaker_type\n");
 		__asm jmp[pAIL_set_3D_speaker_type]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_set_3D_user_data(DWORD a, DWORD e, DWORD i) {
-		Com_Printf("^2Miles Debug: AIL_set_3D_user_data\n");
 		__asm jmp[pAIL_set_3D_user_data]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_set_3D_velocity(DWORD a, DWORD e, DWORD i, DWORD m, DWORD q) {
-		Com_Printf("^2Miles Debug: AIL_set_3D_velocity\n");
 		__asm jmp[pAIL_set_3D_velocity]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_set_3D_velocity_vector(DWORD a, DWORD e, DWORD i, DWORD m) {
-		Com_Printf("^2Miles Debug: AIL_set_3D_velocity_vector\n");
 		__asm jmp[pAIL_set_3D_velocity_vector]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_set_DLS_processor(DWORD a, DWORD e, DWORD i) {
-		Com_Printf("^2Miles Debug: AIL_set_DLS_processor\n");
 		__asm jmp[pAIL_set_DLS_processor]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_set_DirectSound_HWND(DWORD a, DWORD e) {
-		Com_Printf("^2Miles Debug: AIL_set_DirectSound_HWND\n");
 		__asm jmp[pAIL_set_DirectSound_HWND]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_set_XMIDI_master_volume(DWORD a, DWORD e) {
-		Com_Printf("^2Miles Debug: AIL_set_XMIDI_master_volume\n");
 		__asm jmp[pAIL_set_XMIDI_master_volume]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_set_digital_driver_processor(DWORD a, DWORD e, DWORD i) {
-		Com_Printf("^2Miles Debug: AIL_set_digital_driver_processor\n");
 		__asm jmp[pAIL_set_digital_driver_processor]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_set_digital_master_reverb(DWORD a, DWORD e, DWORD i, DWORD m) {
-		Com_Printf("^2Miles Debug: AIL_set_digital_master_reverb\n");
 		__asm jmp[pAIL_set_digital_master_reverb]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_set_digital_master_reverb_levels(DWORD a, DWORD e, DWORD i) {
-		Com_Printf("^2Miles Debug: AIL_set_digital_master_reverb_levels\n");
 		__asm jmp[pAIL_set_digital_master_reverb_levels]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_set_digital_master_room_type(DWORD a, DWORD e) {
-		Com_Printf("^2Miles Debug: AIL_set_digital_master_room_type\n");
 		__asm jmp[pAIL_set_digital_master_room_type]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_set_digital_master_volume_level(DWORD a, DWORD e) {
-		Com_Printf("^2Miles Debug: AIL_set_digital_master_volume_level\n");
 		__asm jmp[pAIL_set_digital_master_volume_level]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_set_error(DWORD a) {
-		Com_Printf("^2Miles Debug: AIL_set_error\n");
 		__asm jmp[pAIL_set_error]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_set_file_async_callbacks(DWORD a, DWORD e, DWORD i, DWORD m, DWORD q) {
-		Com_Printf("^2Miles Debug: AIL_set_file_async_callbacks\n");
 		__asm jmp[pAIL_set_file_async_callbacks]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_set_file_callbacks(DWORD a, DWORD e, DWORD i, DWORD m) {
-		Com_Printf("^2Miles Debug: AIL_set_file_callbacks\n");
 		__asm jmp[pAIL_set_file_callbacks]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_set_filter_DLS_preference(DWORD a, DWORD e, DWORD i) {
-		Com_Printf("^2Miles Debug: AIL_set_filter_DLS_preference\n");
 		__asm jmp[pAIL_set_filter_DLS_preference]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_set_filter_preference(DWORD a, DWORD e, DWORD i) {
-		Com_Printf("^2Miles Debug: AIL_set_filter_preference\n");
 		__asm jmp[pAIL_set_filter_preference]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_set_filter_sample_preference(DWORD a, DWORD e, DWORD i) {
-		Com_Printf("^2Miles Debug: AIL_set_filter_sample_preference\n");
 		__asm jmp[pAIL_set_filter_sample_preference]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_set_filter_stream_preference(DWORD a, DWORD e, DWORD i) {
-		Com_Printf("^2Miles Debug: AIL_set_filter_stream_preference\n");
 		__asm jmp[pAIL_set_filter_stream_preference]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_set_input_state(DWORD a, DWORD e) {
-		Com_Printf("^2Miles Debug: AIL_set_input_state\n");
 		__asm jmp[pAIL_set_input_state]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_set_named_sample_file(DWORD a, DWORD e, DWORD i, DWORD m, DWORD q) {
-		Com_Printf("^2Miles Debug: AIL_set_named_sample_file\n");
 		__asm jmp[pAIL_set_named_sample_file]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_set_preference(DWORD a, DWORD e) {
-		Com_Printf("^2Miles Debug: AIL_set_preference\n");
 		__asm jmp[pAIL_set_preference]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_set_redist_directory(DWORD a) {
-		Com_Printf("^2Miles Debug: AIL_set_redist_directory\n");
 		__asm jmp[pAIL_set_redist_directory]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_set_sample_address(DWORD a, DWORD e, DWORD i) {
-		Com_Printf("^2Miles Debug: AIL_set_sample_address\n");
 		__asm jmp[pAIL_set_sample_address]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_set_sample_adpcm_block_size(DWORD a, DWORD e) {
-		Com_Printf("^2Miles Debug: AIL_set_sample_adpcm_block_size\n");
 		__asm jmp[pAIL_set_sample_adpcm_block_size]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_set_sample_file(DWORD a, DWORD e, DWORD i) {
-		Com_Printf("^2Miles Debug: AIL_set_sample_file\n");
 		__asm jmp[pAIL_set_sample_file]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_set_sample_loop_block(DWORD a, DWORD e, DWORD i) {
-		Com_Printf("^2Miles Debug: AIL_set_sample_loop_block\n");
 		__asm jmp[pAIL_set_sample_loop_block]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_set_sample_loop_count(DWORD a, DWORD e) {
-		Com_Printf("^2Miles Debug: AIL_set_sample_loop_count\n");
 		__asm jmp[pAIL_set_sample_loop_count]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_set_sample_low_pass_cut_off(DWORD a, DWORD e) {
-		Com_Printf("^2Miles Debug: AIL_set_sample_low_pass_cut_off\n");
 		__asm jmp[pAIL_set_sample_low_pass_cut_off]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_set_sample_ms_position(DWORD a, DWORD e) {
-		Com_Printf("^2Miles Debug: AIL_set_sample_ms_position\n");
 		__asm jmp[pAIL_set_sample_ms_position]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_set_sample_playback_rate(DWORD a, DWORD e) {
-		Com_Printf("^2Miles Debug: AIL_set_sample_playback_rate\n");
 		__asm jmp[pAIL_set_sample_playback_rate]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_set_sample_position(DWORD a, DWORD e) {
-		Com_Printf("^2Miles Debug: AIL_set_sample_position\n");
 		__asm jmp[pAIL_set_sample_position]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_set_sample_processor(DWORD a, DWORD e, DWORD i) {
-		Com_Printf("^2Miles Debug: AIL_set_sample_processor\n");
 		__asm jmp[pAIL_set_sample_processor]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_set_sample_reverb_levels(DWORD a, DWORD e, DWORD i) {
-		Com_Printf("^2Miles Debug: AIL_set_sample_reverb_levels\n");
 		__asm jmp[pAIL_set_sample_reverb_levels]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_set_sample_type(DWORD a, DWORD e, DWORD i) {
-		Com_Printf("^2Miles Debug: AIL_set_sample_type\n");
 		__asm jmp[pAIL_set_sample_type]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_set_sample_user_data(DWORD a, DWORD e, DWORD i) {
-		Com_Printf("^2Miles Debug: AIL_set_sample_user_data\n");
 		__asm jmp[pAIL_set_sample_user_data]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_set_sample_volume_levels(DWORD a, DWORD e, DWORD i) {
-		Com_Printf("^2Miles Debug: AIL_set_sample_volume_levels\n");
 		__asm jmp[pAIL_set_sample_volume_levels]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_set_sample_volume_pan(DWORD a, DWORD e, DWORD i) {
-		Com_Printf("^2Miles Debug: AIL_set_sample_volume_pan\n");
 		__asm jmp[pAIL_set_sample_volume_pan]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_set_sequence_loop_count(DWORD a, DWORD e) {
-		Com_Printf("^2Miles Debug: AIL_set_sequence_loop_count\n");
 		__asm jmp[pAIL_set_sequence_loop_count]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_set_sequence_ms_position(DWORD a, DWORD e) {
-		Com_Printf("^2Miles Debug: AIL_set_sequence_ms_position\n");
 		__asm jmp[pAIL_set_sequence_ms_position]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_set_sequence_tempo(DWORD a, DWORD e, DWORD i) {
-		Com_Printf("^2Miles Debug: AIL_set_sequence_tempo\n");
 		__asm jmp[pAIL_set_sequence_tempo]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_set_sequence_user_data(DWORD a, DWORD e, DWORD i) {
-		Com_Printf("^2Miles Debug: AIL_set_sequence_user_data\n");
 		__asm jmp[pAIL_set_sequence_user_data]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_set_sequence_volume(DWORD a, DWORD e, DWORD i) {
-		Com_Printf("^2Miles Debug: AIL_set_sequence_volume\n");
 		__asm jmp[pAIL_set_sequence_volume]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_set_stream_loop_block(DWORD a, DWORD e, DWORD i) {
-		Com_Printf("^2Miles Debug: AIL_set_stream_loop_block\n");
 		__asm jmp[pAIL_set_stream_loop_block]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_set_stream_loop_count(DWORD a, DWORD e) {
-		Com_Printf("^2Miles Debug: AIL_set_stream_loop_count\n");
 		__asm jmp[pAIL_set_stream_loop_count]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_set_stream_low_pass_cut_off(DWORD a, DWORD e) {
-		Com_Printf("^2Miles Debug: AIL_set_stream_low_pass_cut_off\n");
 		__asm jmp[pAIL_set_stream_low_pass_cut_off]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_set_stream_ms_position(DWORD a, DWORD e) {
-		Com_Printf("^2Miles Debug: AIL_set_stream_ms_position\n");
 		__asm jmp[pAIL_set_stream_ms_position]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_set_stream_playback_rate(DWORD a, DWORD e) {
-		Com_Printf("^2Miles Debug: AIL_set_stream_playback_rate\n");
 		__asm jmp[pAIL_set_stream_playback_rate]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_set_stream_position(DWORD a, DWORD e) {
-		Com_Printf("^2Miles Debug: AIL_set_stream_position\n");
 		__asm jmp[pAIL_set_stream_position]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_set_stream_processor(DWORD a, DWORD e, DWORD i) {
-		Com_Printf("^2Miles Debug: AIL_set_stream_processor\n");
 		__asm jmp[pAIL_set_stream_processor]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_set_stream_reverb_levels(DWORD a, DWORD e, DWORD i) {
-		Com_Printf("^2Miles Debug: AIL_set_stream_reverb_levels\n");
 		__asm jmp[pAIL_set_stream_reverb_levels]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_set_stream_user_data(DWORD a, DWORD e, DWORD i) {
-		Com_Printf("^2Miles Debug: AIL_set_stream_user_data\n");
 		__asm jmp[pAIL_set_stream_user_data]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_set_stream_volume_levels(DWORD a, DWORD e, DWORD i) {
-		Com_Printf("^2Miles Debug: AIL_set_stream_volume_levels\n");
 		__asm jmp[pAIL_set_stream_volume_levels]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_set_stream_volume_pan(DWORD a, DWORD e, DWORD i) {
@@ -1646,19 +1316,15 @@ extern "C" {
 		__asm jmp[pAIL_set_stream_volume_pan]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_set_timer_divisor(DWORD a, DWORD e) {
-		Com_Printf("^2Miles Debug: AIL_set_timer_divisor\n");
 		__asm jmp[pAIL_set_timer_divisor]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_set_timer_frequency(DWORD a, DWORD e) {
-		Com_Printf("^2Miles Debug: AIL_set_timer_frequency\n");
 		__asm jmp[pAIL_set_timer_frequency]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_set_timer_period(DWORD a, DWORD e) {
-		Com_Printf("^2Miles Debug: AIL_set_timer_period\n");
 		__asm jmp[pAIL_set_timer_period]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_set_timer_user(DWORD a, DWORD e) {
-		Com_Printf("^2Miles Debug: AIL_set_timer_user\n");
 		__asm jmp[pAIL_set_timer_user]
 	}
 	MSS_DLL_EXPORT void WINAPI AIL_shutdown() {
@@ -1675,83 +1341,63 @@ extern "C" {
 
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_size_processed_digital_audio(DWORD a, DWORD e, DWORD i, DWORD m) {
-		Com_Printf("^2Miles Debug: AIL_size_processed_digital_audio\n");
 		__asm jmp[pAIL_size_processed_digital_audio]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_start_3D_sample(DWORD a) {
-		Com_Printf("^2Miles Debug: AIL_start_3D_sample\n");
 		__asm jmp[pAIL_start_3D_sample]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_start_all_timers() {
-		Com_Printf("^2Miles Debug: AIL_start_all_timers\n");
 		__asm jmp[pAIL_start_all_timers]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_start_sample(DWORD a) {
-		Com_Printf("^2Miles Debug: AIL_start_sample\n");
 		__asm jmp[pAIL_start_sample]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_start_sequence(DWORD a) {
-		Com_Printf("^2Miles Debug: AIL_start_sequence\n");
 		__asm jmp[pAIL_start_sequence]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_start_stream(DWORD a) {
-		Com_Printf("^2Miles Debug: AIL_start_stream\n");
 		__asm jmp[pAIL_start_stream]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_start_timer(DWORD a) {
-		Com_Printf("^2Miles Debug: AIL_start_timer\n");
 		__asm jmp[pAIL_start_timer]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_startup() {
-		Com_Printf("^2Miles Debug: AIL_startup\n");
 		__asm jmp[pAIL_startup]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_stop_3D_sample(DWORD a) {
-		Com_Printf("^2Miles Debug: AIL_stop_3D_sample\n");
 		__asm jmp[pAIL_stop_3D_sample]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_stop_all_timers() {
-		Com_Printf("^2Miles Debug: AIL_stop_all_timers\n");
 		__asm jmp[pAIL_stop_all_timers]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_stop_sample(DWORD a) {
-		Com_Printf("^2Miles Debug: AIL_stop_sample\n");
 		__asm jmp[pAIL_stop_sample]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_stop_sequence(DWORD a) {
-		Com_Printf("^2Miles Debug: AIL_stop_sequence\n");
 		__asm jmp[pAIL_stop_sequence]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_stop_timer(DWORD a) {
-		Com_Printf("^2Miles Debug: AIL_stop_timer\n");
 		__asm jmp[pAIL_stop_timer]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_stream_info(DWORD a, DWORD e, DWORD i, DWORD m, DWORD q) {
-		Com_Printf("^2Miles Debug: AIL_stream_info\n");
 		__asm jmp[pAIL_stream_info]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_stream_loop_count(DWORD a) {
-		Com_Printf("^2Miles Debug: AIL_stream_loop_count\n");
 		__asm jmp[pAIL_stream_loop_count]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_stream_low_pass_cut_off(DWORD a) {
-		Com_Printf("^2Miles Debug: AIL_stream_low_pass_cut_off\n");
 		__asm jmp[pAIL_stream_low_pass_cut_off]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_stream_ms_position(DWORD a, DWORD e, DWORD i) {
-		Com_Printf("^2Miles Debug: AIL_stream_ms_position\n");
 		__asm jmp[pAIL_stream_ms_position]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_stream_playback_rate(DWORD a) {
-		Com_Printf("^2Miles Debug: AIL_stream_playback_rate\n");
 		__asm jmp[pAIL_stream_playback_rate]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_stream_position(DWORD a) {
-		Com_Printf("^2Miles Debug: AIL_stream_position\n");
 		__asm jmp[pAIL_stream_position]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_stream_reverb_levels(DWORD a, DWORD e, DWORD i) {
-		Com_Printf("^2Miles Debug: AIL_stream_reverb_levels\n");
 		__asm jmp[pAIL_stream_reverb_levels]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_stream_status(DWORD a) {
@@ -1759,95 +1405,72 @@ extern "C" {
 		__asm jmp[pAIL_stream_status]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_stream_user_data(DWORD a, DWORD e) {
-		Com_Printf("^2Miles Debug: AIL_stream_user_data\n");
 		__asm jmp[pAIL_stream_user_data]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_stream_volume_levels(DWORD a, DWORD e, DWORD i) {
-		Com_Printf("^2Miles Debug: AIL_stream_volume_levels\n");
 		__asm jmp[pAIL_stream_volume_levels]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_stream_volume_pan(DWORD a, DWORD e, DWORD i) {
-		Com_Printf("^2Miles Debug: AIL_stream_volume_pan\n");
 		__asm jmp[pAIL_stream_volume_pan]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_true_sequence_channel(DWORD a, DWORD e) {
-		Com_Printf("^2Miles Debug: AIL_true_sequence_channel\n");
 		__asm jmp[pAIL_true_sequence_channel]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_unlock() {
-		Com_Printf("^2Miles Debug: AIL_unlock\n");
 		__asm jmp[pAIL_unlock]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_unlock_mutex() {
-		Com_Printf("^2Miles Debug: AIL_unlock_mutex\n");
 		__asm jmp[pAIL_unlock_mutex]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_update_3D_position(DWORD a, DWORD e) {
-		Com_Printf("^2Miles Debug: AIL_update_3D_position\n");
 		__asm jmp[pAIL_update_3D_position]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_us_count() {
-		Com_Printf("^2Miles Debug: AIL_us_count\n");
 		__asm jmp[pAIL_us_count]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_waveOutClose(DWORD a) {
-		Com_Printf("^2Miles Debug: AIL_waveOutClose\n");
 		__asm jmp[pAIL_waveOutClose]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI AIL_waveOutOpen(DWORD a, DWORD e, DWORD i, DWORD m) {
-		Com_Printf("^2Miles Debug: AIL_waveOutOpen\n");
 		__asm jmp[pAIL_waveOutOpen]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI DLSMSSGetCPU(DWORD a) {
-		Com_Printf("^2Miles Debug: DLSMSSGetCPU\n");
 		__asm jmp[pDLSMSSGetCPU]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI MIX_RIB_MAIN(DWORD a, DWORD e) {
-		Com_Printf("^2Miles Debug: MIX_RIB_MAIN\n");
 		__asm jmp[pMIX_RIB_MAIN]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI RIB_enumerate_providers(DWORD a, DWORD e, DWORD i) {
-		Com_Printf("^2Miles Debug: RIB_enumerate_providers\n");
 		__asm jmp[pRIB_enumerate_providers]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI RIB_find_file_dec_provider(DWORD a, DWORD e, DWORD i, DWORD m, DWORD q) {
-		Com_Printf("^2Miles Debug: RIB_find_file_dec_provider\n");
 		__asm jmp[pRIB_find_file_dec_provider]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI RIB_find_files_provider(DWORD a, DWORD e, DWORD i, DWORD m, DWORD q) {
-		Com_Printf("^2Miles Debug: RIB_find_files_provider\n");
 		__asm jmp[pRIB_find_files_provider]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI RIB_find_provider(DWORD a, DWORD e, DWORD i) {
-		Com_Printf("^2Miles Debug: RIB_find_provider\n");
 		__asm jmp[pRIB_find_provider]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI RIB_load_application_providers(DWORD a) {
-		Com_Printf("^2Miles Debug: RIB_load_application_providers\n");
 		__asm jmp[pRIB_load_application_providers]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI RIB_load_static_provider_library(DWORD a, DWORD e) {
-		Com_Printf("^2Miles Debug: RIB_load_static_provider_library\n");
 		__asm jmp[pRIB_load_static_provider_library]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI RIB_provider_system_data(DWORD a, DWORD e) {
-		Com_Printf("^2Miles Debug: RIB_provider_system_data\n");
 		__asm jmp[pRIB_provider_system_data]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI RIB_provider_user_data(DWORD a, DWORD e) {
-		Com_Printf("^2Miles Debug: RIB_provider_user_data\n");
 		__asm jmp[pRIB_provider_user_data]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI RIB_set_provider_system_data(DWORD a, DWORD e, DWORD i) {
-		Com_Printf("^2Miles Debug: RIB_set_provider_system_data\n");
 		__asm jmp[pRIB_set_provider_system_data]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void WINAPI RIB_set_provider_user_data(DWORD a, DWORD e, DWORD i) {
-		Com_Printf("^2Miles Debug: RIB_set_provider_user_data\n");
 		__asm jmp[pRIB_set_provider_user_data]
 	}
 	__declspec(naked) MSS_DLL_EXPORT void stream_background() {
-		Com_Printf("^2Miles Debug: RIB_set_provider_user_data\n");
 		__asm jmp[pstream_background]
 	}
 
