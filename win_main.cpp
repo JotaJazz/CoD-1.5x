@@ -27,6 +27,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	hInst = hInstance;
 	strncpy(sys_cmdline, lpCmdLine, sizeof(sys_cmdline) - 1);
 
+	SetProcessDPIAware(); // otherwise Windows bitmap-scales the game window above 100% scaling
+
 	void CL_DiscordInitialize();
 	CL_DiscordInitialize();
 

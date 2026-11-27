@@ -1028,12 +1028,13 @@ const char* Com_GametypeName(char* gt, bool colors) { // Keep colors for loading
 }
 
 bool GetDesktopResolution(int* pHorizontal, int* pVertical) {
-	RECT desktopRectangle;
-	const HWND desktopHandle = GetDesktopWindow();
+	// real pixels even when Windows scaling is above 100% (GetDesktopWindow's rect is DPI-virtualized)
+	DEVMODEA dm = { 0 };
+	dm.dmSize = sizeof(dm);
 
-	if (desktopHandle && GetWindowRect(desktopHandle, &desktopRectangle)) {
-		*pHorizontal = desktopRectangle.right;
-		*pVertical = desktopRectangle.bottom;
+	if (EnumDisplaySettingsA(NULL, ENUM_CURRENT_SETTINGS, &dm)) {
+		*pHorizontal = dm.dmPelsWidth;
+		*pVertical = dm.dmPelsHeight;
 
 		return true;
 	}
