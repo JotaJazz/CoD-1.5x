@@ -58,7 +58,7 @@ void Discord_StatusPlaying() {
 	discordPresence.largeImageText = Com_CleanMapname(mapnameClean); // for some reason this needs a whole new buffer
 
 	
-	int player_count = *(int*)CGAME_OFF(0x3020F7B0);
+	int player_count = cgame_mp ? *(int*)CGAME_OFF(0x3020F7B0) : 0;
 	if(player_count > 0 && player_count < 65) {
 		discordPresence.partySize = player_count;
 		discordPresence.partyMax = atoi(Info_ValueForKey(info, "sv_maxclients"));
