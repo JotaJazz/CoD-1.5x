@@ -30,3 +30,51 @@ void R_Init(void) {
 		MoveWindow(*gameWindow, 0, 0, width, height, 0);
 	}
 }
+#include "libs/detours/detours.h"
+
+// The stock vidmode table has no 16:9 modes. Modes 10 (2048x1536, last entry of the video menu)
+// and 11 (856x480) become the desktop resolution, and the menu label of mode 10 is renamed to match.
+static char nativeModeLabel[32];
+static char nativeModeName[2][48];
+
+static const char* __cdecl Localize_Override(const char* key) {
+	if (*key == '@') key++;
+	return nativeModeLabel[0] && !_stricmp(key, "MENU_20481536") ? nativeModeLabel : NULL;
+}
+
+static DWORD orig_SEH_StringEd_GetString;
+// engine string lookup: key in edx, one stack arg, returns translation (or NULL) in eax; ecx is scratch
+static __declspec(naked) void SEH_StringEd_GetString_Stub() {
+	__asm {
+		push edx
+		push edx
+		call Localize_Override
+		add esp, 4
+		pop edx
+		test eax, eax
+		jz original
+		ret
+	original:
+		jmp orig_SEH_StringEd_GetString
+	}
+}
+
+void R_PatchNativeMode() {
+	struct vidmode_t { const char* description; int width, height; float pixelAspect; };
+	vidmode_t* modes = (vidmode_t*)0x5B21C0;
+
+	int width, height;
+	if (!GetDesktopResolution(&width, &height))
+		return;
+
+	for (int i = 0; i < 2; i++) {
+		int mode = 10 + i;
+		_snprintf(nativeModeName[i], sizeof(nativeModeName[i]) - 1, "Mode %d: %dx%d (native)", mode, width, height);
+		modes[mode].description = nativeModeName[i];
+		modes[mode].width = width;
+		modes[mode].height = height;
+	}
+	_snprintf(nativeModeLabel, sizeof(nativeModeLabel) - 1, "%dx%d", width, height);
+
+	orig_SEH_StringEd_GetString = (DWORD)DetourFunction((PBYTE)0x4B1590, (PBYTE)SEH_StringEd_GetString_Stub);
+}

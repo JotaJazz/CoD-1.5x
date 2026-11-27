@@ -68,17 +68,8 @@ bool apply_hooks() {
 
 	__nop(0x418943, 6); //remove flickering when loading into a map.
 
-	// The stock vidmode table has no 16:9 modes; replace mode 11 (856x480) with the desktop resolution.
-	struct vidmode_t { const char* description; int width, height; float pixelAspect; };
-	vidmode_t* nativeMode = (vidmode_t*)0x5B21C0 + 11;
-	static char nativeModeName[48];
-	int width, height;
-	if (GetDesktopResolution(&width, &height)) {
-		_snprintf(nativeModeName, sizeof(nativeModeName) - 1, "Mode 11: %dx%d (native)", width, height);
-		nativeMode->description = nativeModeName;
-		nativeMode->width = width;
-		nativeMode->height = height;
-	}
+	void R_PatchNativeMode();
+	R_PatchNativeMode();
 
 	return true;
 }
