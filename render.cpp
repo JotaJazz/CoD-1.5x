@@ -18,6 +18,15 @@ RB_SetGL2D_t RB_SetGL2D = (RB_SetGL2D_t)0x4D6CB0;
 */
 
 void R_Init(void) {
+	// Without r_displayRefresh, Windows picks any rate for the fullscreen mode (often 60 Hz).
+	// In the native modes ask for the desktop rate; the engine falls back to default if it fails.
+	int mode = Cvar_VariableIntegerValue("r_mode");
+	DEVMODEA desktop = { 0 };
+	desktop.dmSize = sizeof(desktop);
+	if (Cvar_VariableIntegerValue("r_fullscreen") && (mode == 10 || mode == 11) && !Cvar_VariableIntegerValue("r_displayRefresh")
+		&& EnumDisplaySettingsA(NULL, ENUM_CURRENT_SETTINGS, &desktop) && desktop.dmDisplayFrequency > 1)
+		Cvar_Set("r_displayRefresh", va("%d", desktop.dmDisplayFrequency));
+
 	void(*call)(void);
 	*(int*)&call = 0x4BF480;
 	call();
