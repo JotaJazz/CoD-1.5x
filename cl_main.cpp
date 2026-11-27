@@ -47,15 +47,13 @@ void Cmd_Borderless() {
 
 		if (Cvar_VariableIntegerValue("r_borderless")) {
 			Cvar_Set("r_fullscreen", "0");
-			Cvar_Set("r_mode", "-1");
+			Cvar_Set("r_mode", "11"); // native desktop resolution, see hook.cpp
 			Cvar_Set("com_introplayed", "1");
 		}
 
 		void(*Cbuf_ExecuteText)(const char*);
 		*(UINT32*)&Cbuf_ExecuteText = 0x42AAB0;
-		char cmd[10];
-		sprintf(cmd, "vid_restart", cmd);
-		Cbuf_ExecuteText(cmd);
+		Cbuf_ExecuteText("vid_restart");
 	}
 	else {
 		Com_Printf("\"r_borderless\" is:\"%d\" default: \"0\"\n", Cvar_VariableIntegerValue("r_borderless"));
