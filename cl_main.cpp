@@ -71,6 +71,117 @@ __declspec(naked) void CL_BeginDownloadStub() {
 	}
 }
 
+// The server list only asks codmaster.activision.com. Send the same getservers query to a second
+// master (cl_masterServer2, empty = off) so the list still fills if Activision's goes away; the engine
+// merges both answers and skips servers it already has.
+typedef void(__cdecl* NET_OutOfBandPrint_t)(int sock, netadr_t adr, const char* format, ...);
+static void __cdecl CL_RequestServers(int sock, netadr_t adr, const char* query) {
+	NET_OutOfBandPrint_t NET_OutOfBandPrint = (NET_OutOfBandPrint_t)0x44C290;
+	NET_OutOfBandPrint(sock, adr, query); // the engine passes the query as the format, keep that
+
+	char host[256];
+	int Com_ParseHostPort(const char* address, char* host, int hostSize, int defaultPort);
+	int port = Com_ParseHostPort(Cvar_Get("cl_masterServer2", "master.cod.pm", CVAR_ARCHIVE)->string, host, sizeof(host), 20510);
+	if (!port)
+		return;
+	hostent* h = gethostbyname(host); // blocks like the engine's own lookup of the Activision master
+	if (!h || h->h_addrtype != AF_INET) {
+		Com_Printf("Couldn't resolve cl_masterServer2 %s\n", host);
+		return;
+	}
+	netadr_t master = { NA_IP };
+	memcpy(master.ip, h->h_addr_list[0], 4);
+	master.port = htons((u_short)port);
+	Com_Printf("Requesting servers from %s...\n", host);
+	NET_OutOfBandPrint(sock, master, query);
+}
+
+// Time of day in front of chat messages (cg_chattime), in the chat area and the console alike.
+static const char* __cdecl CL_ChatTime(const char* cmd) {
+	static char out[1100]; // a server command is at most 1024
+	static cvar_t* cg_chattime;
+	if (!cg_chattime)
+		cg_chattime = Cvar_Get("cg_chattime", "1", CVAR_ARCHIVE);
+	if (!cg_chattime->integer)
+		return cmd;
+	SYSTEMTIME now;
+	GetLocalTime(&now);
+	char time[16];
+	_snprintf(time, sizeof(time), "^7[%02d:%02d]", now.wHour, now.wMinute);
+	time[sizeof(time) - 1] = 0;
+	const char* Com_AddChatTime(const char* cmd, const char* time, char* out, int size);
+	return Com_AddChatTime(cmd, time, out, sizeof(out));
+}
+
+// CL_GetServerCommand: Cmd_TokenizeString(command in eax, one stack arg) before cgame reads it
+__declspec(naked) void CL_TokenizeServerCommandStub() {
+	__asm {
+		push eax
+		call CL_ChatTime
+		add esp, 4
+		mov ecx, 0x42A700 // Cmd_TokenizeString
+		jmp ecx
+	}
+}
+
+// Console history (up/down arrow) survives restarts: Main\console_history.txt, saved on quit.
+// The engine keeps 32 field_t entries (0x11c bytes, text at +0x1c) and copies one into the console
+// field on recall, so each loaded entry is built the way the engine resets the field after Enter.
+#define CON_HISTORY ((BYTE*)0x14896E0)
+#define CON_HISTORY_SIZE 32
+#define CON_FIELD_SIZE 0x11C
+#define CON_NEXT_HISTORY (*(int*)0x148884C)
+#define CON_HISTORY_LINE (*(int*)0x1488844)
+
+static void Con_HistoryPath(char* path, int size) {
+	GetModuleFileNameA(NULL, path, size);
+	char* slash = strrchr(path, '\\');
+	_snprintf(slash ? slash + 1 : path, size - (slash ? (int)(slash + 1 - path) : 0) - 1, "Main\\console_history.txt");
+	path[size - 1] = 0;
+}
+
+void Con_SaveHistory() {
+	bool Con_IsSavedHistoryLine(const char* line);
+	char path[MAX_PATH];
+	Con_HistoryPath(path, sizeof(path));
+	FILE* f = fopen(path, "w");
+	if (!f)
+		return;
+	int first = max(0, CON_NEXT_HISTORY - CON_HISTORY_SIZE);
+	for (int i = first; i < CON_NEXT_HISTORY; i++) {
+		const char* line = (const char*)CON_HISTORY + (i % CON_HISTORY_SIZE) * CON_FIELD_SIZE + 0x1C;
+		if (Con_IsSavedHistoryLine(line))
+			fprintf(f, "%.255s\n", line);
+	}
+	fclose(f);
+}
+
+static void Con_LoadHistory() {
+	char path[MAX_PATH], line[512];
+	Con_HistoryPath(path, sizeof(path));
+	FILE* f = fopen(path, "r");
+	if (!f)
+		return;
+	int count = 0;
+	while (count < CON_HISTORY_SIZE && fgets(line, sizeof(line), f)) {
+		line[strcspn(line, "\r\n")] = 0;
+		if (!*line)
+			continue;
+		BYTE* field = CON_HISTORY + count * CON_FIELD_SIZE;
+		memset(field, 0, CON_FIELD_SIZE);
+		strncpy((char*)field + 0x1C, line, 255);
+		((int*)field)[0] = strlen((char*)field + 0x1C); // cursor at the end
+		((int*)field)[2] = 0x100;                       // as after Enter (CL_KeyDownEvent, 0x40DF01)
+		((int*)field)[3] = *(int*)0x5BCD38;
+		((int*)field)[4] = *(int*)0x5BCD3C;
+		((int*)field)[5] = *(int*)0x5BCD40;
+		((int*)field)[6] = 1;
+		count++;
+	}
+	fclose(f);
+	CON_NEXT_HISTORY = CON_HISTORY_LINE = count;
+}
+
 void Cmd_Borderless() {
 	if (Cmd_Argc() > 1) {
 		Cvar_Set("r_borderless", Cmd_Argv(1));
@@ -99,6 +210,7 @@ void CL_Init(void) {
 	Cvar_Get("cg_fov", "80", CVAR_ARCHIVE);
 	Cvar_Get("cl_allowCustomDlls", "0", CVAR_ARCHIVE); // see librarymodule.cpp
 	Cvar_Get("r_borderless", "0", CVAR_ARCHIVE); // read by R_Init on the next start
+	Cvar_Get("cl_masterServer2", "master.cod.pm", CVAR_ARCHIVE); // see CL_RequestServers
 	extern cvar_t* cg_widescreenhud;
 	cg_widescreenhud = Cvar_Get("cg_widescreenhud", "1", CVAR_ARCHIVE); // see hud.cpp
 
@@ -116,6 +228,13 @@ void CL_Init(void) {
 	}
 
 	Cmd_AddCommand("r_borderless", Cmd_Borderless);
+
+	static bool initOnce; // CL_Init runs again on some restarts
+	if (!initOnce) {
+		initOnce = true;
+		Con_LoadHistory();
+		__call(0x415175, (int)CL_RequestServers); // NET_OutOfBandPrint in CL_GlobalServers_f
+	}
 
 	static bool updateStarted; // CL_Init runs again on some restarts
 	if (!updateStarted && Cvar_Get("cl_updatecheck", "1", CVAR_ARCHIVE)->integer) {

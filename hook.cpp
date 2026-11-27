@@ -4,6 +4,9 @@
 #include "version.h"
 
 void CleanupExit() {
+	void Con_SaveHistory();
+	Con_SaveHistory();
+
 	void(*o)();
 	*(UINT32*)&o = 0x40EF70;
 	o();
@@ -61,6 +64,9 @@ void apply_hooks() {
 
 	void HUD_Init();
 	HUD_Init(); // widescreen HUD, see hud.cpp
+
+	void CL_TokenizeServerCommandStub();
+	__call(0x4016E4, (int)CL_TokenizeServerCommandStub); // chat time, see CL_ChatTime
 
 	void CL_BeginDownloadStub();
 	__call(0x410E76, (int)CL_BeginDownloadStub); // only caller, in CL_NextDownload

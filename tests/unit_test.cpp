@@ -13,6 +13,9 @@ char* Com_CleanMapname(char* mapname);
 const char* Com_GametypeName(char* gt, bool colors);
 int ParseLatestBuild(const char* json);
 bool Com_IsSafeDownloadName(const char* name);
+const char* Com_AddChatTime(const char* cmd, const char* time, char* out, int size);
+bool Con_IsSavedHistoryLine(const char* line);
+int Com_ParseHostPort(const char* address, char* host, int hostSize, int defaultPort);
 
 static float VerticalFov(float fovX, float aspect) { // stock cgame formula: fov_y from fov_x
 	return atanf(tanf(fovX * 3.14159265f / 360.0f) / aspect) * 360.0f / 3.14159265f;
@@ -63,6 +66,29 @@ int main() {
 	assert(!Com_IsSafeDownloadName("/main/evil.pk3") && !Com_IsSafeDownloadName("main/sub/evil.pk3"));
 	assert(!Com_IsSafeDownloadName("evil.pk3") && !Com_IsSafeDownloadName("main/.pk3") && !Com_IsSafeDownloadName(""));
 	assert(!Com_IsSafeDownloadName(NULL));
+
+	char hostbuf[16];
+	assert(Com_ParseHostPort("master.cod.pm", hostbuf, sizeof(hostbuf), 20510) == 20510 && !strcmp(hostbuf, "master.cod.pm"));
+	assert(Com_ParseHostPort("1.2.3.4:28960", hostbuf, sizeof(hostbuf), 20510) == 28960 && !strcmp(hostbuf, "1.2.3.4"));
+	assert(!Com_ParseHostPort("", hostbuf, sizeof(hostbuf), 20510) && !Com_ParseHostPort(":20510", hostbuf, sizeof(hostbuf), 20510));
+	assert(!Com_ParseHostPort("host:0", hostbuf, sizeof(hostbuf), 20510) && !Com_ParseHostPort("host:99999", hostbuf, sizeof(hostbuf), 20510));
+	assert(!Com_ParseHostPort("a.very.long.hostname.example", hostbuf, sizeof(hostbuf), 20510) && !Com_ParseHostPort(NULL, hostbuf, sizeof(hostbuf), 1));
+
+	char chat[64];
+	assert(!strcmp(Com_AddChatTime("h \"\x15Jota^7: hola\"", "[12:05]", chat, sizeof(chat)), "h \"\x15[12:05] Jota^7: hola\""));
+	assert(!strcmp(Com_AddChatTime("i \"Team: go\"", "[01:00]", chat, sizeof(chat)), "i \"[01:00] Team: go\""));
+	const char* other = "cs 1 \"x\"";
+	assert(Com_AddChatTime(other, "[12:05]", chat, sizeof(chat)) == other);
+	const char* hud = "hud \"x\""; // starts with h but is not chat
+	assert(Com_AddChatTime(hud, "[12:05]", chat, sizeof(chat)) == hud);
+	const char* tight = "h \"0123456789012345678901234567890123456789012345678901234\"";
+	assert(Com_AddChatTime(tight, "[12:05]", chat, sizeof(chat)) == tight);
+	assert(Com_AddChatTime(NULL, "[12:05]", chat, sizeof(chat)) == NULL);
+
+	assert(Con_IsSavedHistoryLine("/connect 1.2.3.4") && Con_IsSavedHistoryLine("cg_fov 90"));
+	assert(!Con_IsSavedHistoryLine("") && !Con_IsSavedHistoryLine("  /") && !Con_IsSavedHistoryLine(NULL));
+	assert(!Con_IsSavedHistoryLine("/rcon login secret") && !Con_IsSavedHistoryLine("RCON status"));
+	assert(!Con_IsSavedHistoryLine("/set rconPassword x") && !Con_IsSavedHistoryLine("password abc"));
 
 	printf("ok\n");
 	return 0;

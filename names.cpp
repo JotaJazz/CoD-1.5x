@@ -90,3 +90,44 @@ bool Com_IsSafeDownloadName(const char* name) {
 	const char* slash = strchr(name, '/');
 	return slash && slash[1] != '.' && !strchr(slash + 1, '/'); // exactly one folder, no "folder/.pk3"
 }
+
+// "host" or "host:port" -> host (in a buffer of hostSize) and the port, or defaultPort; 0 if invalid.
+int Com_ParseHostPort(const char* address, char* host, int hostSize, int defaultPort) {
+	if (!address || hostSize <= 0)
+		return 0;
+	const char* colon = strchr(address, ':');
+	int length = colon ? (int)(colon - address) : (int)strlen(address);
+	int port = colon ? atoi(colon + 1) : defaultPort;
+	if (length <= 0 || length >= hostSize || port <= 0 || port > 65535)
+		return 0;
+	memcpy(host, address, length);
+	host[length] = 0;
+	return port;
+}
+
+// Chat arrives as the server command  h "\x15Name^7: text"  (i for team chat). Returns the command with
+// "time " put at the start of the message, in out, or cmd itself when it is not chat or does not fit.
+const char* Com_AddChatTime(const char* cmd, const char* time, char* out, int size) {
+	if (!cmd || (cmd[0] != 'h' && cmd[0] != 'i') || cmd[1] != ' ' || cmd[2] != '"')
+		return cmd;
+	int prefix = cmd[3] == '\x15' ? 4 : 3; // keep the engine's marker in front
+	if ((int)(strlen(cmd) + strlen(time) + 2) > size)
+		return cmd;
+	_snprintf(out, size, "%.*s%s %s", prefix, cmd, time, cmd + prefix);
+	out[size - 1] = 0;
+	return out;
+}
+
+// Console history is saved to a text file: leave out empty lines and anything that can carry a password.
+bool Con_IsSavedHistoryLine(const char* line) {
+	if (!line)
+		return false;
+	while (*line == ' ' || *line == '\\' || *line == '/')
+		line++;
+	if (!*line || !_strnicmp(line, "rcon", 4))
+		return false;
+	for (const char* p = line; *p; p++)
+		if (!_strnicmp(p, "password", 8))
+			return false;
+	return true;
+}

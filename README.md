@@ -37,6 +37,13 @@
 |---|---|
 | **Raw mouse input** | On by default: the mouse is read directly (WM_INPUT), ignoring Windows pointer speed and "Enhance pointer precision". 1:1 aim at any polling rate. `m_rawinput 0` for the old behaviour. |
 
+### 💬 Quality of life
+| | |
+|---|---|
+| **Backup master server** | The server list also asks a second master (`cl_masterServer2`, default `master.cod.pm`), so it keeps working if Activision's master goes down. Duplicates are merged. Set it to `""` to only use Activision's. |
+| **Chat time** | Chat messages show the time they arrived, `[21:05] Player: gg`, on screen and in the console. `cg_chattime 0` to hide it. |
+| **Console history is kept** | Up/down arrow history survives restarts (`Main\console_history.txt`, saved on quit). Lines with `rcon` or `password` are never saved. |
+
 ### 🛡️ Safety & stability
 | | |
 |---|---|
@@ -97,6 +104,8 @@ Rename `mss32.dll` to `mss32_original.dll`, then copy `cod15x.dll` into the fold
 | `cg_xui_fps` | `1` | FPS counter; position with `cg_xui_fps_x` / `cg_xui_fps_y`. |
 | `cl_allowCustomDlls` | `0` | `1` = allow non-official cgame/ui/game DLLs. Only for servers you trust. |
 | `r_displayRefresh` | auto | Set it yourself to force a refresh rate. |
+| `cl_masterServer2` | `master.cod.pm` | Second master for the server list (`host` or `host:port`). `""` = off. |
+| `cg_chattime` | `1` | Time in front of chat messages. |
 | `cl_updatecheck` | `1` | Check GitHub for a newer release at startup. `0` = never connect. |
 
 Example:
