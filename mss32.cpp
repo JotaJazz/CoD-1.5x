@@ -1486,13 +1486,19 @@ extern "C" void MSS32_Unload() {
 bool miles32_loaded = false;
 
 void MSS32_Hook() {
-	hMSS = nullptr;
+	// Installed as mss32.dll next to an unmodified CoDMP.exe, with the real Miles DLL renamed to
+	// mss32_original.dll. Older installs patched CoDMP.exe to import cod5x.dll instead; there the
+	// real one is still mss32.dll.
+	HMODULE self = NULL;
+	GetModuleHandleExA(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS | GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT, (LPCSTR)MSS32_Hook, &self);
 
-	hMSS = LoadLibraryA("mss32.dll");
+	hMSS = LoadLibraryA("mss32_original.dll");
+	if (!hMSS)
+		hMSS = LoadLibraryA("mss32.dll");
 
-	if (!hMSS) {
-		MessageBoxA(NULL, "Failed to load mss32.dll", __TITLE, MB_OK | MB_ICONERROR);
-		Com_Quit_f();
+	if (!hMSS || hMSS == self) { // never forward the exports to ourselves
+		MessageBoxA(NULL, "Failed to load mss32_original.dll (the original Miles mss32.dll, renamed).", __TITLE, MB_OK | MB_ICONERROR);
+		hMSS = nullptr;
 		return;
 	}
 

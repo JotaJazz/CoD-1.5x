@@ -23,7 +23,14 @@ Requires Visual Studio 2019 or newer with the "Desktop development with C++" wor
 MSBuild cod5x.vcxproj /p:Configuration=Release /p:Platform=Win32
 ```
 
-Copy `Release/cod5x.dll` to the game directory. `CoDMP.exe` must import `cod5x.dll` instead of `mss32.dll` (the release exe has exactly that 5-byte change).
+The build output is `Release/mss32.dll`. No game binary is modified:
+
+1. In the game directory, rename the original `mss32.dll` (Miles Sound System) to `mss32_original.dll`.
+2. Copy `Release/mss32.dll` into the game directory.
+
+To uninstall, delete `mss32.dll` and rename `mss32_original.dll` back to `mss32.dll`.
+CoDSP.exe and the United Offensive exes also load `mss32.dll`; for them it only forwards to the original.
+Older installs with a patched `CoDMP.exe` importing `cod5x.dll` keep working if the file is named `cod5x.dll`.
 
 ## Notice
 
