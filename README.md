@@ -59,20 +59,26 @@ The original release shipped a modified `CoDMP.exe`. This fork installs as `mss3
 
 You need an original, legitimately purchased copy of Call of Duty patched to **1.5**.
 
-1. In your game folder, rename the original **`mss32.dll`** to **`mss32_original.dll`**.
-2. Copy **`mss32.dll`** from the release into the game folder.
-3. Start multiplayer: the bottom-right corner shows **1.5x 2043**.
+1. Extract **`install.bat`** and **`cod15x.dll`** from the release zip into your Call of Duty folder.
+2. Double-click **`install.bat`** and choose **1 - Install / update**.
+3. Start multiplayer: the bottom-right corner shows **1.5x 2044**.
+
+The script renames your original Miles `mss32.dll` to `mss32_original.dll` and installs CoD 1.5x as `mss32.dll`. It asks for administrator rights when the game is under Program Files. Run it again to update, or choose **2 - Uninstall** to restore the original files.
 
 ```
 Call of Duty\
 ├── CoDMP.exe              (unmodified)
 ├── mss32.dll              ← CoD 1.5x
-└── mss32_original.dll     ← your original Miles mss32.dll, renamed
+└── mss32_original.dll     ← your original Miles mss32.dll
 ```
 
-**Uninstall:** delete `mss32.dll` and rename `mss32_original.dll` back to `mss32.dll`.
+<details>
+<summary>Manual install</summary>
 
-> Upgrading from the original release (`CoDMP.exe` + `cod5x.dll`)? Restore your original `CoDMP.exe` and follow the steps above.
+Rename `mss32.dll` to `mss32_original.dll`, then copy `cod15x.dll` into the folder as `mss32.dll`. To uninstall, delete `mss32.dll` and rename `mss32_original.dll` back.
+</details>
+
+> Upgrading from the original release (`CoDMP.exe` + `cod5x.dll`)? Restore your original `CoDMP.exe` first.
 
 ## ⚙️ Settings
 
@@ -101,7 +107,7 @@ Visual Studio 2019 or newer with the **Desktop development with C++** workload (
 MSBuild cod5x.vcxproj /p:Configuration=Release /p:Platform=Win32
 ```
 
-Output: `Release/mss32.dll`. Old installs with a patched `CoDMP.exe` importing `cod5x.dll` still work if the file is named `cod5x.dll`.
+Output: `Release/mss32.dll` (shipped as `cod15x.dll` in the release zip, see `install.bat`). Old installs with a patched `CoDMP.exe` importing `cod5x.dll` still work if the file is named `cod5x.dll`.
 
 ## 🙏 Credits
 
