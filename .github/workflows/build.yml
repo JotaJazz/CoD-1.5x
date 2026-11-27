@@ -51,6 +51,7 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          gh release create $env:GITHUB_REF_NAME "CoD-1.5x-${{ steps.package.outputs.build }}.zip" `
+          # cod15x.dll on its own is what /update in the game downloads (checked against the SHA-256 below)
+          gh release create $env:GITHUB_REF_NAME "CoD-1.5x-${{ steps.package.outputs.build }}.zip" dist/cod15x.dll `
             --draft --title "CoD 1.5x ${{ steps.package.outputs.build }}" --generate-notes `
             --notes "Built by GitHub Actions from this tag. **SHA-256** ``cod15x.dll``: ``${{ steps.package.outputs.hash }}``"

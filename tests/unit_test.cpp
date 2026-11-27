@@ -12,6 +12,7 @@ char* Com_CleanHostname(char* hostname, int size, bool colors);
 char* Com_CleanMapname(char* mapname);
 const char* Com_GametypeName(char* gt, bool colors);
 int ParseLatestBuild(const char* json);
+bool ParseReleaseSha256(const char* json, char hex[65]);
 bool Com_IsSafeDownloadName(const char* name);
 const char* Com_AddChatTime(const char* cmd, const char* time, char* out, int size);
 bool Con_IsSavedHistoryLine(const char* line);
@@ -66,6 +67,13 @@ int main() {
 	assert(!Com_IsSafeDownloadName("/main/evil.pk3") && !Com_IsSafeDownloadName("main/sub/evil.pk3"));
 	assert(!Com_IsSafeDownloadName("evil.pk3") && !Com_IsSafeDownloadName("main/.pk3") && !Com_IsSafeDownloadName(""));
 	assert(!Com_IsSafeDownloadName(NULL));
+
+	char sha[65];
+	const char* notes = "{\"body\":\"Built by GitHub Actions. **SHA-256** `cod15x.dll`: `AB12cd34ab12cd34ab12cd34ab12cd34ab12cd34ab12cd34ab12cd34ab12cd34`\"}";
+	assert(ParseReleaseSha256(notes, sha) && !strcmp(sha, "ab12cd34ab12cd34ab12cd34ab12cd34ab12cd34ab12cd34ab12cd34ab12cd34"));
+	assert(!ParseReleaseSha256("{\"body\":\"SHA-256 `abc`\"}", sha) && !ParseReleaseSha256("{\"body\":\"no hash\"}", sha));
+	assert(!ParseReleaseSha256("SHA-256 ab12cd34ab12cd34ab12cd34ab12cd34ab12cd34ab12cd34ab12cd34ab12cd34ab", sha)); // 66 hex
+	assert(!ParseReleaseSha256(NULL, sha));
 
 	char hostbuf[16];
 	assert(Com_ParseHostPort("master.cod.pm", hostbuf, sizeof(hostbuf), 20510) == 20510 && !strcmp(hostbuf, "master.cod.pm"));

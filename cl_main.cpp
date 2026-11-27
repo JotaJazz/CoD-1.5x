@@ -34,8 +34,20 @@ void CL_Frame(int msec) {
 	int latest = Update_LatestBuild();
 	if (!updateAnnounced && latest > BUILDNUMBER) {
 		updateAnnounced = true;
-		Com_Printf("^3CoD 1.5x %d is available: https://github.com/JotaJazz/CoD-1.5x/releases\n", latest);
-		Cvar_Set("shortversion", va("1.5x (%d) - %d available", BUILDNUMBER, latest));
+		Com_Printf("^3CoD 1.5x %d is available: type ^7/update^3 to install it, or get it from https://github.com/JotaJazz/CoD-1.5x/releases\n", latest);
+		Cvar_Set("shortversion", va("1.5x (%d) - %d available, /update", BUILDNUMBER, latest));
+	}
+
+	const char* updateMessage;
+	int Update_Status(const char** message);
+	switch (Update_Status(&updateMessage)) {
+	case 2:
+		Com_Printf("^2%s\n", updateMessage);
+		Cvar_Set("shortversion", va("1.5x (%d) - restart to update", BUILDNUMBER));
+		break;
+	case 3:
+		Com_Printf("^1Update failed: %s\n", updateMessage);
+		break;
 	}
 }
 UINT_PTR pcl_frame = (UINT_PTR)0x412710;
@@ -182,6 +194,19 @@ static void Con_LoadHistory() {
 	CON_NEXT_HISTORY = CON_HISTORY_LINE = count;
 }
 
+void Cmd_Update() {
+	bool Update_Install();
+	int Update_LatestBuild();
+	if (Update_Install())
+		Com_Printf("Downloading CoD 1.5x %d...\n", Update_LatestBuild());
+	else if (Update_LatestBuild() > BUILDNUMBER)
+		Com_Printf("The update is already running or installed, or this release can't be installed from the game: get it from https://github.com/JotaJazz/CoD-1.5x/releases\n");
+	else if (Update_LatestBuild())
+		Com_Printf("CoD 1.5x %d is the latest version.\n", BUILDNUMBER);
+	else
+		Com_Printf("No update information yet (cl_updatecheck 1 checks GitHub at startup).\n");
+}
+
 void Cmd_Borderless() {
 	if (Cmd_Argc() > 1) {
 		Cvar_Set("r_borderless", Cmd_Argv(1));
@@ -213,6 +238,8 @@ void CL_Init(void) {
 	Cvar_Get("cl_masterServer2", "master.cod.pm", CVAR_ARCHIVE); // see CL_RequestServers
 	extern cvar_t* cg_widescreenhud;
 	cg_widescreenhud = Cvar_Get("cg_widescreenhud", "1", CVAR_ARCHIVE); // see hud.cpp
+	extern cvar_t* ui_widescreen;
+	ui_widescreen = Cvar_Get("ui_widescreen", "1", CVAR_ARCHIVE);
 
 	Cvar_Set("version", va("COD MP 1.5x build %d %s %s win-x86", BUILDNUMBER, __DATE__, __TIME__));
 	Cvar_Set("shortversion", va("1.5x (%d)", BUILDNUMBER));
@@ -228,11 +255,14 @@ void CL_Init(void) {
 	}
 
 	Cmd_AddCommand("r_borderless", Cmd_Borderless);
+	Cmd_AddCommand("update", Cmd_Update);
 
 	static bool initOnce; // CL_Init runs again on some restarts
 	if (!initOnce) {
 		initOnce = true;
 		Con_LoadHistory();
+		void Update_Cleanup();
+		Update_Cleanup();
 		__call(0x415175, (int)CL_RequestServers); // NET_OutOfBandPrint in CL_GlobalServers_f
 	}
 

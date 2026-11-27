@@ -28,6 +28,7 @@
 | **Native resolution** | The stock game has no 16:9 modes at all. Your desktop resolution (e.g. 1920x1080) is now available as `r_mode 10`, and appears in the in-game **Video** menu with its real size. `r_mode 11` is native too. |
 | **Hor+ widescreen FOV** | On 16:9 the stock game crops the top and bottom of the view. Now `cg_fov` is the 4:3 horizontal FOV, so widescreen keeps the full vertical view and gains on the sides (`cg_fov 80` → 96.4° at 16:9). Mouse sensitivity and sniper zoom feel unchanged. |
 | **Widescreen HUD** | The stock HUD is stretched to the screen width on 16:9 (round icons become ovals, text gets too big). Now it keeps its 4:3 proportions in the center of the screen; full-screen overlays still cover the whole screen. `cg_widescreenhud 0` for the stock behaviour. |
+| **Widescreen menus** | The menus get the same fix: buttons, text and cursor keep 4:3 proportions, backgrounds still fill the screen. `ui_widescreen 0` for the stock behaviour. |
 | **Correct refresh rate** | In fullscreen the game could fall back to 60 Hz on a 75/144 Hz monitor. Native modes now use your desktop refresh rate. |
 | **Fixed borderless mode** | `r_borderless 1` rendered at an unrelated size inside a fullscreen window; it now renders at native resolution. Also fixed a memory corruption bug in the command. |
 | **High-DPI aware** | Correct native resolution and a sharp window with Windows scaling at 125% / 150%. |
@@ -52,7 +53,7 @@
 | **Version-checked patches** | Patches are applied only to the official CoDMP 1.5 exe and cgame/ui builds, never to an unknown build that would crash. |
 | **Your settings stick** | Recommended settings are applied once, not forced on every start. |
 | **Crash reports** | If the game crashes, a report and a small memory dump are saved in `crashes\` next to the game and a message shows where. Attach them to an [issue](https://github.com/JotaJazz/CoD-1.5x/issues). Nothing is uploaded. |
-| **Update notice** | At startup the client asks GitHub for the latest release; when there is a newer one, the version text in the menus says so. `cl_updatecheck 0` disables it. |
+| **Update from the game** | At startup the client asks GitHub for the latest release; when there is a newer one, the version text in the menus says so. Type `/update` to download it: the DLL is checked against the SHA-256 in the release notes and used from the next start. `cl_updatecheck 0` disables the check. |
 | **Leaner** | ~440 lines of dead code removed, including a string compare that ran on every audio call. |
 
 ### 📦 Install without patching the game
@@ -99,6 +100,8 @@ Rename `mss32.dll` to `mss32_original.dll`, then copy `cod15x.dll` into the fold
 | `r_mode 10` | | Native desktop resolution (shown in the Video menu). `r_mode 11` is the same. |
 | `cg_widescreenfov` | `1` | Hor+ FOV on widescreen. `0` = stock behaviour. |
 | `cg_widescreenhud` | `1` | HUD keeps 4:3 proportions on widescreen. `0` = stretched (stock). |
+| `ui_widescreen` | `1` | Menus keep 4:3 proportions on widescreen. `0` = stretched (stock). |
+| `/update` | | Download and install the latest release (used after a restart). |
 | `m_rawinput` | `1` | Raw mouse input. `0` = Windows cursor (pointer speed and acceleration apply). |
 | `r_borderless` | `0` | `1` = borderless window at native resolution. |
 | `cg_xui_fps` | `1` | FPS counter; position with `cg_xui_fps_x` / `cg_xui_fps_y`. |
