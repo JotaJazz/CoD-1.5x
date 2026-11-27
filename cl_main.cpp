@@ -67,6 +67,7 @@ void CL_Init(void) {
 
 	cl_running = Cvar_Get("cl_running", "0", CVAR_ROM);
 	Cvar_Get("cg_fov", "80", CVAR_ARCHIVE);
+	Cvar_Get("cl_allowCustomDlls", "0", CVAR_ARCHIVE); // see librarymodule.cpp
 
 	Cvar_Set("version", va("COD MP 1.5x build %d %s %s win-x86", BUILDNUMBER, __DATE__, __TIME__));
 	Cvar_Set("shortversion", va("1.5x (%d)", BUILDNUMBER));

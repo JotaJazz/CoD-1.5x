@@ -11,6 +11,8 @@ CoDExtended Client (1.5x), is a client-side modification for Call of Duty 1.5.
 - native desktop resolution as `r_mode 10` (shown in the video menu) and `r_mode 11`
 - Hor+ widescreen FOV (`cg_widescreenfov`, default 1): `cg_fov` is the 4:3 horizontal FOV
 - raw mouse input (`m_rawinput 1`), ignores Windows pointer speed and acceleration
+- blocks cgame/ui/game DLLs that are not the official 1.5 ones (a server can ship them in a downloaded pk3); `cl_allowCustomDlls 1` allows them
+- fullscreen native modes use the desktop refresh rate
 - bugfixes
 
 ## Building from source

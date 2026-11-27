@@ -11,8 +11,39 @@ static bool IsOfficialModule(DWORD base, DWORD timeDateStamp, DWORD sizeOfImage)
 	return nt->FileHeader.TimeDateStamp == timeDateStamp && nt->OptionalHeader.SizeOfImage == sizeOfImage;
 }
 
+// The engine extracts cgame/ui/game DLLs from the highest-priority pk3, which can be one a server
+// made us download, and loading a DLL runs its code. Only the official 1.5 DLLs (pakb.pk3) are allowed
+// unless cl_allowCustomDlls is set. Hash before loading: a PE header check after loading is too late.
+static bool IsAllowedGameDll(const char* path) {
+	static const char* official[] = {
+		"ba648846f7542bfd4defb82023aae43b4fdebcae5c51f46adedd38e39a5ebaf0", // cgame_mp_x86.dll
+		"59e7ae5891a7e08b9a0c715813369dfc50ea33f9b2550a5ca3fc459cdf563c71", // ui_mp_x86.dll
+		"b86c24695080007fdb5b595760a2d298bfa17ea0c6fe3e05874c0f19562544f7", // game_mp_x86.dll
+	};
+
+	if (Cvar_VariableIntegerValue("cl_allowCustomDlls"))
+		return true;
+
+	char hash[65];
+	bool Sys_FileSha256(const char* path, char hex[65]);
+	if (Sys_FileSha256(path, hash)) {
+		for (int i = 0; i < sizeof(official) / sizeof(official[0]); i++)
+			if (!strcmp(hash, official[i]))
+				return true;
+	}
+
+	Com_Printf("^1Blocked %s: not an official Call of Duty 1.5 DLL (it may come from a downloaded pk3).\n"
+		"^1Set cl_allowCustomDlls 1 only if you trust the server that sent it.\n", path);
+	return false;
+}
+
 HMODULE(WINAPI *orig_LoadLibraryA)(LPCSTR lpFileName);
 HMODULE WINAPI hLoadLibraryA(LPSTR lpFileName) {
+	if (lpFileName && codversion == COD_5 && strstr(lpFileName, "_mp_x86.dll") && !IsAllowedGameDll(lpFileName)) {
+		SetLastError(ERROR_ACCESS_DENIED);
+		return NULL;
+	}
+
 	HMODULE hModule = orig_LoadLibraryA(lpFileName);
 	if (!hModule || codversion != COD_5)
 		return hModule;
