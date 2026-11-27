@@ -68,6 +68,9 @@ bool apply_hooks() {
 
 	__nop(0x418943, 6); //remove flickering when loading into a map.
 
+	void IN_MouseMove();
+	__jmp(0x466E07, (int)IN_MouseMove); // IN_Frame tail call
+
 	void R_PatchNativeMode();
 	R_PatchNativeMode();
 

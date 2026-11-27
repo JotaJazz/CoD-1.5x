@@ -29,6 +29,9 @@ void R_Init(void) {
 		SetWindowLongA(*gameWindow, GWL_STYLE, WS_VISIBLE | WS_POPUP);
 		MoveWindow(*gameWindow, 0, 0, width, height, 0);
 	}
+
+	void IN_InitRawInput(HWND hWnd);
+	IN_InitRawInput(*gameWindow);
 }
 #include "libs/detours/detours.h"
 

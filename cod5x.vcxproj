@@ -251,6 +251,7 @@
       </PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="hook.cpp" />
+    <ClCompile Include="in_win.cpp" />
     <ClCompile Include="librarymodule.cpp" />
     <ClCompile Include="mss32.cpp" />
     <ClCompile Include="shared.cpp" />

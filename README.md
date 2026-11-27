@@ -8,6 +8,9 @@ CoDExtended Client (1.5x), is a client-side modification for Call of Duty 1.5.
 - Discord Rich Presence
 - unlocked FOV,thirdperson and thirdperson angle
 - Support for disabling jump slowdown
+- native desktop resolution as `r_mode 10` (shown in the video menu) and `r_mode 11`
+- Hor+ widescreen FOV (`cg_widescreenfov`, default 1): `cg_fov` is the 4:3 horizontal FOV
+- raw mouse input (`m_rawinput 1`), ignores Windows pointer speed and acceleration
 - bugfixes
 
 ## Building from source
