@@ -2,3 +2,4 @@
 * text=auto
 
 *.bat text eol=crlf
+INSTALL.txt text eol=crlf

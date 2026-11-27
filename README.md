@@ -12,6 +12,7 @@
   <img alt="Game" src="https://img.shields.io/badge/Call%20of%20Duty-1.5%20MP-4b5320">
   <img alt="Platform" src="https://img.shields.io/badge/platform-Windows%20x86-0078d4">
   <img alt="License" src="https://img.shields.io/badge/license-GPLv3-blue">
+  <a href="https://github.com/JotaJazz/CoD-1.5x/actions/workflows/build.yml"><img alt="Build" src="https://github.com/JotaJazz/CoD-1.5x/actions/workflows/build.yml/badge.svg"></a>
 </p>
 
 > **Fork of [xtnded/codextended-client-1.5](https://github.com/xtnded/codextended-client-1.5)** (CoDExtended client 1.5x).
@@ -110,7 +111,9 @@ Visual Studio 2019 or newer with the **Desktop development with C++** workload (
 MSBuild cod5x.vcxproj /p:Configuration=Release /p:Platform=Win32
 ```
 
-Output: `Release/mss32.dll` (shipped as `cod15x.dll` in the release zip, see `install.bat`). Old installs with a patched `CoDMP.exe` importing `cod5x.dll` still work if the file is named `cod5x.dll`.
+Output: `Release/mss32.dll` (shipped as `cod15x.dll` in the release zip, see `install.bat`).
+
+Tests: `tests\run_tests.bat` from a Visual Studio x86 developer prompt. Every push is built and tested by GitHub Actions; pushing a `vNNNN` tag that matches `version.h` creates a draft release with the zip. Old installs with a patched `CoDMP.exe` importing `cod5x.dll` still work if the file is named `cod5x.dll`.
 
 ## 🙏 Credits
 

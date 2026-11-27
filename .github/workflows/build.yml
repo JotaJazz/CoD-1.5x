@@ -1,0 +1,60 @@
+name: build
+
+on:
+  push:
+    branches: [main]
+    tags: ['v*']
+  pull_request:
+
+permissions:
+  contents: write # create the draft release on tags
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: ilammy/msvc-dev-cmd@v1
+        with:
+          arch: x86
+
+      - name: Build
+        # the hosted runner has VS 2022 (v143); local builds use v142 from the project file
+        run: msbuild cod5x.vcxproj /p:Configuration=Release /p:Platform=Win32 /p:PlatformToolset=v143 /m /nologo /v:m
+
+      - name: Tests
+        shell: cmd
+        run: tests\run_tests.bat
+
+      - name: Package
+        id: package
+        shell: pwsh
+        run: |
+          $build = (Select-String -Path version.h -Pattern 'BUILDNUMBER (\d+)').Matches[0].Groups[1].Value
+          if ($env:GITHUB_REF_TYPE -eq 'tag' -and $env:GITHUB_REF_NAME -ne "v$build") {
+            throw "Tag $env:GITHUB_REF_NAME does not match version.h build $build"
+          }
+          New-Item -ItemType Directory dist | Out-Null
+          Copy-Item Release\mss32.dll dist\cod15x.dll
+          Copy-Item install.bat, INSTALL.txt, LICENSE dist\
+          Compress-Archive -Path dist\* -DestinationPath "CoD-1.5x-$build.zip"
+          $hash = (Get-FileHash dist\cod15x.dll -Algorithm SHA256).Hash.ToLower()
+          "build=$build" >> $env:GITHUB_OUTPUT
+          "hash=$hash" >> $env:GITHUB_OUTPUT
+          Write-Output "cod15x.dll SHA-256: $hash"
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: CoD-1.5x-${{ steps.package.outputs.build }}
+          path: dist/
+
+      - name: Draft release
+        if: github.ref_type == 'tag'
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release create $env:GITHUB_REF_NAME "CoD-1.5x-${{ steps.package.outputs.build }}.zip" `
+            --draft --title "CoD 1.5x ${{ steps.package.outputs.build }}" --generate-notes `
+            --notes "Built by GitHub Actions from this tag. **SHA-256** ``cod15x.dll``: ``${{ steps.package.outputs.hash }}``"
