@@ -13,19 +13,15 @@ jobs:
   build:
     runs-on: windows-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
-      - uses: ilammy/msvc-dev-cmd@v1
-        with:
-          arch: x86
-
-      - name: Build
-        # the hosted runner has VS 2022 (v143); local builds use v142 from the project file
-        run: msbuild cod5x.vcxproj /p:Configuration=Release /p:Platform=Win32 /p:PlatformToolset=v143 /m /nologo /v:m
-
-      - name: Tests
+      - name: Build and test
         shell: cmd
-        run: tests\run_tests.bat
+        # the hosted runner has VS 2022 (v143); local builds use v142 from the project file
+        run: |
+          for /f "usebackq delims=" %%i in (`"%ProgramFiles(x86)%\Microsoft Visual Studio\Installer\vswhere.exe" -latest -property installationPath`) do call "%%i\VC\Auxiliary\Build\vcvars32.bat"
+          msbuild cod5x.vcxproj /p:Configuration=Release /p:Platform=Win32 /p:PlatformToolset=v143 /m /nologo /v:m || exit /b 1
+          call tests\run_tests.bat
 
       - name: Package
         id: package
@@ -44,7 +40,7 @@ jobs:
           "hash=$hash" >> $env:GITHUB_OUTPUT
           Write-Output "cod15x.dll SHA-256: $hash"
 
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         with:
           name: CoD-1.5x-${{ steps.package.outputs.build }}
           path: dist/
