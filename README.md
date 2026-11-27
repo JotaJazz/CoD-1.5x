@@ -12,10 +12,13 @@ CoDExtended Client (1.5x), is a client-side modification for Call of Duty 1.5.
 
 ## Building from source
 
-Build with Visual Studio<br>
-Copy newly compiled DLL to game directory<br>
-???<br>
-PROFIT<br>
+Requires Visual Studio 2019 or newer with the "Desktop development with C++" workload (v142 toolset).
+
+```
+MSBuild cod5x.vcxproj /p:Configuration=Release /p:Platform=Win32
+```
+
+Copy `Release/cod5x.dll` to the game directory. `CoDMP.exe` must import `cod5x.dll` instead of `mss32.dll` (the release exe has exactly that 5-byte change).
 
 ## Notice
 
