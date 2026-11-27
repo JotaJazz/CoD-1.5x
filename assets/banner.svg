@@ -24,13 +24,11 @@
   <rect width="1200" height="300" fill="url(#grid)"/>
   <rect width="1200" height="300" fill="url(#glow)"/>
 
-  <!-- reticle -->
-  <g transform="translate(985 150)" fill="none" stroke="#e8e2c8" stroke-opacity="0.55">
-    <circle r="96" stroke-width="2"/>
-    <circle r="60" stroke-width="1" stroke-dasharray="4 8"/>
-    <path d="M-130 0H-22M22 0H130M0 -130V-22M0 22V130" stroke-width="2"/>
-    <path d="M-96 -6V6M96 -6V6M-6 -96H6M-6 96H6" stroke-width="2"/>
-    <circle r="3" fill="#c8a24a" stroke="none"/>
+  <!-- military star (vehicle insignia style) -->
+  <g transform="translate(985 150)">
+    <circle r="112" fill="none" stroke="#e8e2c8" stroke-opacity="0.25" stroke-width="2" stroke-dasharray="6 10"/>
+    <circle r="96" fill="none" stroke="#e8e2c8" stroke-opacity="0.85" stroke-width="7"/>
+    <polygon points="0.0,-88.0 19.8,-27.2 83.7,-27.2 32.0,10.4 51.7,71.2 0.0,33.6 -51.7,71.2 -32.0,10.4 -83.7,-27.2 -19.8,-27.2" fill="#e8e2c8" fill-opacity="0.85"/>
   </g>
 
   <!-- 16:9 frame hint -->
