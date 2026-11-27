@@ -230,7 +230,6 @@
     <ClInclude Include="shared.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="version.h" />
-    <ClInclude Include="version_info.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="cgame.cpp" />

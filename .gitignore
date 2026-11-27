@@ -3,3 +3,7 @@ Debug/
 Release/
 Dev/
 EXE/
+*.VC.db
+*.user
+*.filters
+UpgradeLog*.htm

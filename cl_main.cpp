@@ -1,6 +1,6 @@
 #include "shared.h"
 #include "client.h"
-#include "version_info.h"
+#include "version.h"
 
 cvar_t* cl_running;
 

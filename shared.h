@@ -476,30 +476,21 @@ extern Cvar_Set_t Cvar_Set;
 extern Cvar_Get_t Cvar_Get;
 extern Cvar_FindVar_t Cvar_FindVar;
 
-char* Cvar_VariableString(const char*);
-char* Cvar_VariableStringBuffer(const char* var_name, char* buffer, int bufsize);
 int Cvar_VariableIntegerValue(const char* var_name);
 
 void Q_strncpyz(char *dest, const char *src, int destsize);
-void Com_sprintf(char *dest, int size, const char *fmt, ...);
 
-static void(*Cmd_ArgvBuffer)(int, char*, int) = (void(*)(int, char*, int))0x4285E0; // UNUSED, WRONG OFFSET
 char* Cmd_Argv(int index);
 int Cmd_Argc();
 
-void Info_SetValueForKey(char *s, const char *key, const char *value);
 char *Info_ValueForKey(const char *s, const char *key);
-void Info_NextPair(const char** head, char* key, char* value);
 
-extern DWORD game_mp;
 extern DWORD cgame_mp;
 
-#define GAME_OFF(x) (game_mp + (x - 0x20000000))
 #define CGAME_OFF(x) (cgame_mp + (x - 0x30000000))
 
 
 
-char* trimSpaces(char* str);
 char* Q_CleanStr(char* string, bool colors = false);
 
 char* Com_CleanHostname(char* hostname, int size, bool colors);
