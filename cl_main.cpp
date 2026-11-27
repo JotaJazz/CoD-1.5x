@@ -47,7 +47,7 @@ void Cmd_Borderless() {
 
 		if (Cvar_VariableIntegerValue("r_borderless")) {
 			Cvar_Set("r_fullscreen", "0");
-			Cvar_Set("r_mode", "11"); // native desktop resolution, see hook.cpp
+			Cvar_Set("r_mode", "11"); // native desktop resolution, see R_PatchNativeMode
 			Cvar_Set("com_introplayed", "1");
 		}
 
@@ -70,11 +70,16 @@ void CL_Init(void) {
 
 	Cvar_Set("version", va("COD MP 1.5x build %d %s %s win-x86", BUILDNUMBER, __DATE__, __TIME__));
 	Cvar_Set("shortversion", va("1.5x (%d)", BUILDNUMBER));
-	Cvar_Set("r_overbrightbits", "0");
-	Cvar_Set("r_ignorehwgamma", "0");
-	Cvar_Set("cl_languagewarnings", "0");
-	Cvar_Set("cl_languagewarningsaserrors", "0");
-	Cvar_Set("com_hunkmegs", "512");
+	// recommended settings are applied once; after that the player's config wins
+	cvar_t* defaultsApplied = Cvar_Get("cl_xdefaults", "0", CVAR_ARCHIVE);
+	if (!defaultsApplied->integer) {
+		Cvar_Set("r_overbrightbits", "0");
+		Cvar_Set("r_ignorehwgamma", "0");
+		Cvar_Set("cl_languagewarnings", "0");
+		Cvar_Set("cl_languagewarningsaserrors", "0");
+		Cvar_Set("com_hunkmegs", "512");
+		Cvar_Set("cl_xdefaults", "1");
+	}
 
 	Cmd_AddCommand("r_borderless", Cmd_Borderless);
 }
