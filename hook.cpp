@@ -71,8 +71,6 @@ bool apply_hooks() {
 	void IN_MouseMove();
 	__jmp(0x466E07, (int)IN_MouseMove); // IN_Frame tail call
 
-	void R_PatchNativeMode();
-	R_PatchNativeMode();
 
 	return true;
 }

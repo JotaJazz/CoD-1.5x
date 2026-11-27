@@ -21,8 +21,8 @@ static bool IsAllowedGameDll(const char* path) {
 		"b86c24695080007fdb5b595760a2d298bfa17ea0c6fe3e05874c0f19562544f7", // game_mp_x86.dll
 	};
 
-	if (Cvar_VariableIntegerValue("cl_allowCustomDlls"))
-		return true;
+	if (Cvar_VariableIntegerValue("cl_allowCustomDlls") || GetFileAttributesA(path) == INVALID_FILE_ATTRIBUTES)
+		return true; // a missing file just fails to load
 
 	char hash[65];
 	bool Sys_FileSha256(const char* path, char hex[65]);

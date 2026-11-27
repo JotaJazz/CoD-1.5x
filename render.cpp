@@ -17,15 +17,27 @@ RE_SetColor_t RE_SetColor = (RE_SetColor_t)0x4EA700;
 RB_SetGL2D_t RB_SetGL2D = (RB_SetGL2D_t)0x4D6CB0;
 */
 
+void R_PatchNativeMode();
+
 void R_Init(void) {
+	R_PatchNativeMode(); // before the engine reads the vidmode table
+
 	// Without r_displayRefresh, Windows picks any rate for the fullscreen mode (often 60 Hz).
 	// In the native modes ask for the desktop rate; the engine falls back to default if it fails.
+	static bool refreshSetByUs;
 	int mode = Cvar_VariableIntegerValue("r_mode");
+	bool native = Cvar_VariableIntegerValue("r_fullscreen") && (mode == 10 || mode == 11);
 	DEVMODEA desktop = { 0 };
 	desktop.dmSize = sizeof(desktop);
-	if (Cvar_VariableIntegerValue("r_fullscreen") && (mode == 10 || mode == 11) && !Cvar_VariableIntegerValue("r_displayRefresh")
-		&& EnumDisplaySettingsA(NULL, ENUM_CURRENT_SETTINGS, &desktop) && desktop.dmDisplayFrequency > 1)
+	if (native && !Cvar_VariableIntegerValue("r_displayRefresh")
+		&& EnumDisplaySettingsA(NULL, ENUM_CURRENT_SETTINGS, &desktop) && desktop.dmDisplayFrequency > 1) {
 		Cvar_Set("r_displayRefresh", va("%d", desktop.dmDisplayFrequency));
+		refreshSetByUs = true;
+	}
+	else if (!native && refreshSetByUs) { // other modes may not support the desktop rate
+		Cvar_Set("r_displayRefresh", "0");
+		refreshSetByUs = false;
+	}
 
 	void(*call)(void);
 	*(int*)&call = 0x4BF480;
@@ -88,5 +100,6 @@ void R_PatchNativeMode() {
 	}
 	_snprintf(nativeModeLabel, sizeof(nativeModeLabel) - 1, "%dx%d", width, height);
 
-	orig_SEH_StringEd_GetString = (DWORD)DetourFunction((PBYTE)0x4B1590, (PBYTE)SEH_StringEd_GetString_Stub);
+	if (!orig_SEH_StringEd_GetString)
+		orig_SEH_StringEd_GetString = (DWORD)DetourFunction((PBYTE)0x4B1590, (PBYTE)SEH_StringEd_GetString_Stub);
 }
