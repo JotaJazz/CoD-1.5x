@@ -51,6 +51,26 @@ void __declspec(naked) CL_FrameStub()
 	}
 }
 
+// CL_NextDownload -> CL_BeginDownload(localName in eax, remoteName on the stack): the local name comes
+// from the server and decides where the file is written. Drop the connection instead of writing outside.
+static void __cdecl CL_CheckDownloadName(const char* localName) {
+	bool Com_IsSafeDownloadName(const char* name);
+	if (!Com_IsSafeDownloadName(localName))
+		Com_Error(ERR_DROP, "Server tried to download a file with an unsafe name:\n%.100s", localName ? localName : "");
+}
+
+__declspec(naked) void CL_BeginDownloadStub() {
+	__asm {
+		push eax
+		push eax
+		call CL_CheckDownloadName
+		add esp, 4
+		pop eax
+		mov ecx, 0x410D50 // CL_BeginDownload
+		jmp ecx
+	}
+}
+
 void Cmd_Borderless() {
 	if (Cmd_Argc() > 1) {
 		Cvar_Set("r_borderless", Cmd_Argv(1));
@@ -79,6 +99,8 @@ void CL_Init(void) {
 	Cvar_Get("cg_fov", "80", CVAR_ARCHIVE);
 	Cvar_Get("cl_allowCustomDlls", "0", CVAR_ARCHIVE); // see librarymodule.cpp
 	Cvar_Get("r_borderless", "0", CVAR_ARCHIVE); // read by R_Init on the next start
+	extern cvar_t* cg_widescreenhud;
+	cg_widescreenhud = Cvar_Get("cg_widescreenhud", "1", CVAR_ARCHIVE); // see hud.cpp
 
 	Cvar_Set("version", va("COD MP 1.5x build %d %s %s win-x86", BUILDNUMBER, __DATE__, __TIME__));
 	Cvar_Set("shortversion", va("1.5x (%d)", BUILDNUMBER));

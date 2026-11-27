@@ -254,6 +254,7 @@
       </PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="hook.cpp" />
+    <ClCompile Include="hud.cpp" />
     <ClCompile Include="in_win.cpp" />
     <ClCompile Include="fov.cpp" />
     <ClCompile Include="names.cpp" />

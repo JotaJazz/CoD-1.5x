@@ -59,6 +59,12 @@ void apply_hooks() {
 	void CL_FrameStub();
 	__call(0x43A6EF, (int)CL_FrameStub);
 
+	void HUD_Init();
+	HUD_Init(); // widescreen HUD, see hud.cpp
+
+	void CL_BeginDownloadStub();
+	__call(0x410E76, (int)CL_BeginDownloadStub); // only caller, in CL_NextDownload
+
 	void CL_Init();
 	__call(0x439FCA, (int)CL_Init);
 	__call(0x43A617, (int)CL_Init);

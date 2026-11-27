@@ -78,3 +78,15 @@ const char* Com_GametypeName(char* gt, bool colors) { // Keep colors for loading
 
 	return colors ? gt : Q_CleanStr(gt);
 }
+
+// Server downloads are written under the game folder with the name the server sends. Accept only
+// "<folder>/<name>.pk3": no "..", drive letters, backslashes or subfolders that could write elsewhere.
+bool Com_IsSafeDownloadName(const char* name) {
+	size_t len = name ? strlen(name) : 0;
+	if (len < 6 || len >= 256 || _stricmp(name + len - 4, ".pk3"))
+		return false;
+	if (strstr(name, "..") || strpbrk(name, ":\\") || name[0] == '/')
+		return false;
+	const char* slash = strchr(name, '/');
+	return slash && slash[1] != '.' && !strchr(slash + 1, '/'); // exactly one folder, no "folder/.pk3"
+}
