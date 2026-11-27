@@ -41,13 +41,14 @@ void IN_InitRawInput(HWND hWnd) {
 	RegisterRawInputDevices(&rid, 1, sizeof(rid));
 }
 
-static void Sys_QueueMouseEvent(int dx, int dy) {
-	// Sys_QueueEvent: time in eax, then type, value, value2, ptrLength, ptr (cdecl)
+static void Sys_QueueMouseEvent(int deltaX, int deltaY) {
+	// Sys_QueueEvent: time in eax, then type, value, value2, ptrLength, ptr (cdecl).
+	// Don't name C variables like registers (dx, ax, ...): inline asm would push the register.
 	__asm {
 		push 0
 		push 0
-		push dy
-		push dx
+		push deltaY
+		push deltaX
 		push 3 // SE_MOUSE
 		xor eax, eax
 		mov ecx, 0x468930
