@@ -27,8 +27,8 @@
 |---|---|
 | **Native resolution** | The stock game has no 16:9 modes at all. Your desktop resolution (e.g. 1920x1080) is now available as `r_mode 10`, and appears in the in-game **Video** menu with its real size. `r_mode 11` is native too. |
 | **Hor+ widescreen FOV** | On 16:9 the stock game crops the top and bottom of the view. Now `cg_fov` is the 4:3 horizontal FOV, so widescreen keeps the full vertical view and gains on the sides (`cg_fov 80` → 96.4° at 16:9). Mouse sensitivity and sniper zoom feel unchanged. |
-| **Widescreen HUD** | The stock HUD is stretched to the screen width on 16:9 (round icons become ovals, text gets too big). Now it keeps its 4:3 proportions in the center of the screen; full-screen overlays still cover the whole screen. `cg_widescreenhud 0` for the stock behaviour. |
-| **Widescreen menus** | The menus get the same fix: buttons, text and cursor keep 4:3 proportions, backgrounds still fill the screen. `ui_widescreen 0` for the stock behaviour. |
+| **Widescreen HUD** | The stock HUD is stretched to the screen width on 16:9 (round icons become ovals, text gets too big). Now it keeps its 4:3 proportions in the center of the screen, chat and game messages included; full-screen overlays still cover the whole screen and the sniper scope gets black bars. `cg_widescreenhud 0` for the stock behaviour. |
+| **Widescreen menus** | The menus get the same fix: buttons, text and cursor keep 4:3 proportions, backgrounds still fill the screen. `ui_widescreen 0` for the stock behaviour. And a little "CoD still rocks!" in the bottom-left corner. |
 | **Correct refresh rate** | In fullscreen the game could fall back to 60 Hz on a 75/144 Hz monitor. Native modes now use your desktop refresh rate. |
 | **Fixed borderless mode** | `r_borderless 1` rendered at an unrelated size inside a fullscreen window; it now renders at native resolution. Also fixed a memory corruption bug in the command. |
 | **High-DPI aware** | Correct native resolution and a sharp window with Windows scaling at 125% / 150%. |
@@ -74,7 +74,9 @@ You need an original, legitimately purchased copy of Call of Duty patched to **1
 
 1. Extract **`install.bat`** and **`cod15x.dll`** from the release zip into your Call of Duty folder.
 2. Double-click **`install.bat`** and choose **1 - Install / update**.
-3. Start multiplayer: the bottom-right corner shows **1.5x 2045**.
+3. Start multiplayer: the bottom-right corner shows **1.5x 2046**.
+
+Already on 2046 or newer? When a new release is out, type `/update` in the console and restart the game.
 
 The script renames your original Miles `mss32.dll` to `mss32_original.dll` and installs CoD 1.5x as `mss32.dll`. It asks for administrator rights when the game is under Program Files. Run it again to update, or choose **2 - Uninstall** to restore the original files.
 
