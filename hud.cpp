@@ -8,8 +8,8 @@
 // cursor in 640x480 units and draws it through here too, so clicks stay on what is shown.
 // The console is not touched.
 // Images that cover the full width (fades, overlays, backgrounds) stay as they are.
-// shortcut: names drawn over players' heads are projected to the full width and get pulled toward
-// the center as well; correct them in cgame if that turns out to be noticeable.
+// Points projected from the world (cgame 0x30016E00: the crosshair follows where the gun aims) are
+// offsets over the full width; they are widened here so they land on the right spot after the squeeze.
 
 cvar_t* cg_widescreenhud;
 cvar_t* ui_widescreen;
@@ -100,8 +100,9 @@ static bool UI_IsVersionText(const char* text) {
 // (x, y, font, scale, color, text, -1, 0, spacing, a8, flags). spacing: fixed advance per character
 // in 640 units (0 = the font's), e.g. 16 for the match timer, so it shrinks with the text.
 typedef int(__cdecl* DrawString_t)(float x, float y, int font, float scale, int color, int text, float spacing, int a8, int a9);
-template <cvar_t** enabled> static int __cdecl HUD_DrawString(float x, float y, int font, float scale, int color, int text, float spacing, int a8, int a9) {
-	DrawString_t draw = (DrawString_t)RE_FUNC(0xD4);
+// re + 0xdc (game messages) takes the same arguments as re.DrawString
+template <cvar_t** enabled, int reOffset = 0xD4> static int __cdecl HUD_DrawString(float x, float y, int font, float scale, int color, int text, float spacing, int a8, int a9) {
+	DrawString_t draw = (DrawString_t)RE_FUNC(reOffset);
 	float slogan = 640 - MENU_VERSION_RIGHT; // mirror of the version's right edge
 	if (HUD_Active(*enabled)) {
 		x = HUD_TextX(x);
@@ -129,6 +130,37 @@ template <cvar_t** enabled> static int __cdecl HUD_DrawStringExt(float x, float 
 	return draw(x, y, font, scale, color, text, a7, a8, spacing, a10, a11);
 }
 
+// cgame: world point -> screen offset from the center in 640x480 units, x written to [edi], y to [esi]
+static DWORD cgProjectToScreen;
+
+static void __cdecl CG_WidenProjectedX(float* x) {
+	if (HUD_Active(cg_widescreenhud))
+		*x /= hudScale;
+}
+
+static __declspec(naked) void CG_ProjectToScreenStub() {
+	__asm {
+		push edi
+		call cgProjectToScreen
+		pop edi
+		push edi
+		call CG_WidenProjectedX
+		add esp, 4
+		ret
+	}
+}
+
+void HUD_InitCgame(DWORD base) { // official cgame only, see CG_Init
+	cgProjectToScreen = base + 0x16E00;
+	DWORD calls[] = { 0x170CA, 0x17929, 0x183D4 }; // crosshair (2), sound overlay
+	for (int i = 0; i < 3; i++) {
+		DWORD site = base + calls[i];
+		XUNLOCK((void*)site, 5);
+		*(int*)(site + 1) = (int)CG_ProjectToScreenStub - (int)(site + 5);
+		FlushInstructionCache(GetCurrentProcess(), (void*)site, 5);
+	}
+}
+
 // "call dword ptr [re.X]" (6 bytes) -> "call HUD_X; nop"
 static void HUD_PatchCall(DWORD site, void* func) {
 	XUNLOCK((void*)site, 6);
@@ -147,6 +179,7 @@ void HUD_Init() {
 	HUD_PatchCall(0x402CEA, HUD_DrawString<&cg_widescreenhud>);      // re + 0xd4
 	HUD_PatchCall(0x402D24, HUD_DrawStringExt<&cg_widescreenhud>);   // re + 0xe0
 	HUD_PatchCall(0x40A88D, HUD_DrawString<&cg_widescreenhud>);      // chat lines, drawn by the exe for cgame
+	HUD_PatchCall(0x40A1D5, HUD_DrawString<&cg_widescreenhud, 0xDC>); // game messages and obituaries, likewise
 
 	// CL_UISystemCalls
 	HUD_PatchCall(0x41A4DF, HUD_StretchPic<&ui_widescreen>);

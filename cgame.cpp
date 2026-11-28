@@ -238,6 +238,9 @@ void CG_Init(DWORD base) {
 	
 	__call(CGAME_OFF(0x3001617E), (int)CG_DrawFPS);
 
+	void HUD_InitCgame(DWORD base);
+	HUD_InitCgame(base); // widescreen HUD: projected points
+
 	Cvar_Get("cg_widescreenfov", "1", CVAR_ARCHIVE);
 	__call(CGAME_OFF(0x300345E1), (int)CG_GetFov_HorPlus);
 	__jmp(CGAME_OFF(0x30034E31), (int)CG_CalcFov_HorPlus);
